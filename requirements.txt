@@ -1,0 +1,87 @@
+# Prometheus-Eval Dependencies
+# Phase 1: Foundation & Core Metrics
+
+# =============================================================================
+# LLM Provider APIs
+# =============================================================================
+openai>=1.12.0
+anthropic>=0.18.0
+tiktoken>=0.5.2  # OpenAI tokenizer
+
+# =============================================================================
+# Machine Learning & NLP
+# =============================================================================
+torch>=2.1.0
+transformers>=4.37.0
+sentence-transformers>=2.3.0  # For BERTScore embeddings
+datasets>=2.16.0  # For HuggingFace datasets
+
+# =============================================================================
+# Metric Implementation
+# =============================================================================
+nltk>=3.8.1  # For BLEU, METEOR, tokenization
+sacrebleu>=2.4.0  # Reference BLEU implementation
+bert-score>=0.3.13  # BERTScore implementation
+rouge-score>=0.1.2  # ROUGE metrics
+numpy>=1.24.0
+scipy>=1.11.0
+
+# =============================================================================
+# Code Execution & Testing
+# =============================================================================
+docker>=7.0.0  # Docker Python SDK for sandbox
+pytest>=7.4.0
+pytest-cov>=4.1.0  # Code coverage
+pytest-mock>=3.12.0  # Mocking for tests
+pytest-timeout>=2.2.0  # Timeout for long-running tests
+
+# =============================================================================
+# Data Processing & Storage
+# =============================================================================
+pandas>=2.1.0
+pyarrow>=14.0.0  # For Parquet support
+jsonschema>=4.20.0  # JSON validation
+
+# =============================================================================
+# Configuration & Environment
+# =============================================================================
+python-dotenv>=1.0.0  # .env file loading
+pydantic>=2.5.0  # Data validation and settings management
+pyyaml>=6.0.1  # YAML configuration
+
+# =============================================================================
+# Logging & Monitoring
+# =============================================================================
+loguru>=0.7.2  # Enhanced logging
+tqdm>=4.66.0  # Progress bars
+
+# =============================================================================
+# Utility Libraries
+# =============================================================================
+requests>=2.31.0
+tenacity>=8.2.3  # Retry logic for API calls
+aiohttp>=3.9.0  # Async HTTP for concurrent requests
+asyncio-throttle>=1.0.2  # Rate limiting
+
+# =============================================================================
+# Development Tools
+# =============================================================================
+black>=23.12.0  # Code formatting
+flake8>=7.0.0  # Linting
+mypy>=1.8.0  # Type checking
+ipython>=8.18.0  # Interactive shell
+jupyter>=1.0.0  # Notebooks for experimentation
+
+# =============================================================================
+# Phase 3 Dependencies (Visualization - Install Later)
+# =============================================================================
+# flask>=3.0.0  # Backend API for dashboard
+# flask-cors>=4.0.0  # CORS support
+# plotly>=5.18.0  # Python plotting library
+# streamlit>=1.29.0  # Alternative to React dashboard
+
+# =============================================================================
+# Optional Dependencies
+# =============================================================================
+# vllm>=0.2.7  # For local LLM inference (requires GPU)
+# torch-cuda>=2.1.0  # CUDA support for GPU acceleration
