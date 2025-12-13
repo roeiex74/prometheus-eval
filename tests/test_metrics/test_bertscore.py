@@ -17,7 +17,11 @@ import pytest
 # Try importing torch - skip tests if not available (e.g., architecture mismatch)
 torch = pytest.importorskip("torch", reason="torch not available (possible architecture mismatch)")
 
-from src.metrics.semantic.bertscore import BERTScoreMetric
+# Try importing BERTScore - skip entire module if dependencies have architecture issues
+try:
+    from src.metrics.semantic.bertscore import BERTScoreMetric
+except ImportError as e:
+    pytest.skip(f"BERTScore dependencies unavailable (possible architecture mismatch): {e}", allow_module_level=True)
 
 # Test tolerance for floating point comparisons
 EPSILON = 1e-3  # Larger tolerance for embedding-based metrics
