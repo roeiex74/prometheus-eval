@@ -169,3 +169,203 @@ Scenario A (Pass): Updates state --status COMPLETE --log "Tests passed.". Orches
 Scenario B (Fail): Updates state --status FAILED --log "Formula incorrect.". 
 
 Now the orchestrator should go over each agent validatoin and fix plan, and provide each professional agent the fix plan steps.
+
+##############################
+
+## CRITICAL: Master Plan Synchronization
+
+**Primary Directive**: At the start of EVERY orchestrator invocation, you MUST:
+
+1. **Read Master Plan**: Load `/Users/roeirahamim/Documents/MSC/LLM_Agents/ex6/docs/PLAN-LATEST.md`
+2. **Read Project State**: Load `/Users/roeirahamim/Documents/MSC/LLM_Agents/ex6/PROJECT_STATE.json`
+3. **Compare & Analyze**:
+   - Which phase are we currently in?
+   - What tasks from the plan are completed?
+   - What tasks are in progress?
+   - What tasks are blocked?
+   - Are we on schedule or delayed?
+4. **Update State**: After any agent completes work, update PROJECT_STATE.json
+5. **Report Status**: Provide a brief status summary comparing actual vs. planned progress
+
+**PROJECT_STATE.json Location**: `/Users/roeirahamim/Documents/MSC/LLM_Agents/ex6/PROJECT_STATE.json`
+
+This file is the **single source of truth** for project status. Structure:
+
+```json
+{
+  "project_name": "Prometheus-Eval",
+  "current_phase": "Phase 1",
+  "phase_status": "90% complete - CONDITIONAL PASS",
+  "last_updated": "2025-12-13T01:30:00Z",
+  "phases": {
+    "phase_1": {
+      "name": "Core Infrastructure (Weeks 1-4)",
+      "status": "CONDITIONAL_PASS",
+      "completion_percentage": 90,
+      "start_date": "2025-12-09",
+      "target_end_date": "2025-12-13",
+      "actual_end_date": null,
+      "tasks": {
+        "implementation": {
+          "status": "COMPLETE",
+          "completed": ["Inference Engine", "BLEU Metric", "BERTScore Metric", "Pass@k Metric", "Docker Sandbox"],
+          "in_progress": [],
+          "blocked": []
+        },
+        "validation": {
+          "status": "COMPLETE",
+          "completed": ["QA Report", "Security Report", "Architecture Review", "Research Report", "Documentation Report", "Validation Report"],
+          "in_progress": [],
+          "blocked": []
+        },
+        "fixes": {
+          "status": "IN_PROGRESS",
+          "completed": [],
+          "in_progress": ["ISSUE-001: setup.py", "ISSUE-002: __init__.py", "ISSUE-008: test errors", "ISSUE-QA-001: BERTScore", "ISSUE-QA-003: Inference tests"],
+          "blocked": []
+        }
+      },
+      "quality_metrics": {
+        "test_coverage": 44,
+        "test_pass_rate": 97.9,
+        "code_quality_score": 79.2,
+        "security_risk": "LOW",
+        "prd_compliance": 100
+      },
+      "critical_issues": 5,
+      "gate_decision": "CONDITIONAL_PASS",
+      "gate_conditions": ["Fix 5 critical issues (21h effort)"]
+    },
+    "phase_2": {
+      "name": "Semantic & Embedding Layer (Weeks 5-8)",
+      "status": "NOT_STARTED",
+      "completion_percentage": 0,
+      "start_date": null,
+      "target_end_date": "2026-01-10",
+      "tasks": {
+        "week_5": ["Fix Phase 1 issues", "HumanEval baseline"],
+        "week_6": ["ROUGE", "METEOR", "Stability", "Perplexity", "Tone metrics"],
+        "week_7": ["Variator implementation"],
+        "week_8": ["Validation", "Research deliverable"]
+      }
+    },
+    "phase_3": {
+      "name": "Advanced Logic & Visualization (Weeks 9-12)",
+      "status": "NOT_STARTED",
+      "completion_percentage": 0,
+      "start_date": null,
+      "target_end_date": "2026-02-07"
+    }
+  },
+  "agents": {
+    "system-architect-agent": {
+      "tasks_assigned": 8,
+      "tasks_completed": 6,
+      "current_task": "Fix ISSUE-001, ISSUE-002, ISSUE-008",
+      "status": "ACTIVE"
+    },
+    "metric-mathematician-agent": {
+      "tasks_assigned": 3,
+      "tasks_completed": 3,
+      "current_task": null,
+      "status": "IDLE"
+    },
+    "qa-agent": {
+      "tasks_assigned": 2,
+      "tasks_completed": 1,
+      "current_task": "Monitor issue fixes",
+      "status": "ACTIVE"
+    },
+    "security-agent": {
+      "tasks_assigned": 1,
+      "tasks_completed": 1,
+      "current_task": null,
+      "status": "IDLE"
+    },
+    "project-architect-agent": {
+      "tasks_assigned": 1,
+      "tasks_completed": 1,
+      "current_task": null,
+      "status": "IDLE"
+    },
+    "research-agent": {
+      "tasks_assigned": 1,
+      "tasks_completed": 1,
+      "current_task": null,
+      "status": "IDLE"
+    },
+    "documentation-agent": {
+      "tasks_assigned": 2,
+      "tasks_completed": 2,
+      "current_task": null,
+      "status": "IDLE"
+    },
+    "validation-submission-agent": {
+      "tasks_assigned": 1,
+      "tasks_completed": 1,
+      "current_task": null,
+      "status": "IDLE"
+    }
+  },
+  "issues": {
+    "critical": {
+      "count": 2,
+      "list": ["ISSUE-001: setup.py", "ISSUE-QA-001: BERTScore architecture"]
+    },
+    "high": {
+      "count": 2,
+      "list": ["ISSUE-002: __init__.py exports", "ISSUE-QA-003: Inference tests"]
+    },
+    "medium": {
+      "count": 1,
+      "list": ["ISSUE-008: Test collection error"]
+    }
+  },
+  "metrics": {
+    "total_files": 56,
+    "total_lines": 8000,
+    "test_count": 97,
+    "test_pass_count": 95,
+    "commits": 3
+  }
+}
+```
+
+**Orchestrator Workflow with State Management**:
+
+1. **On Invocation**:
+   ```
+   - Read PLAN-LATEST.md
+   - Read PROJECT_STATE.json
+   - Compare planned vs actual
+   - Identify next actions
+   ```
+
+2. **After Agent Completes Task**:
+   ```
+   - Update PROJECT_STATE.json with completion
+   - Update agent status
+   - Update quality metrics if changed
+   - Update issue counts
+   - Save state
+   ```
+
+3. **Before Dispatching New Agent**:
+   ```
+   - Check PROJECT_STATE.json for blockers
+   - Verify dependencies are met
+   - Update agent status to ACTIVE
+   - Log task assignment
+   ```
+
+4. **At Phase Gate**:
+   ```
+   - Compare phase completion % vs plan
+   - Verify all tasks complete
+   - Check quality metrics meet thresholds
+   - Update gate_decision
+   - Determine if proceeding to next phase
+   ```
+
+**State Update Command Pattern**:
+Every agent must update PROJECT_STATE.json when completing work. The orchestrator is responsible for maintaining this file.
