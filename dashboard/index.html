@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experiment Dashboard</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="background-globes">
+        <div class="globe globe-1"></div>
+        <div class="globe globe-2"></div>
+    </div>
+
+    <div class="container">
+        <header class="dashboard-header">
+            <div class="logo">
+                <i class="fa-solid fa-flask-vial"></i>
+                <h1>EVAL<span class="highlight">DASH</span></h1>
+            </div>
+            <div class="status-bar">
+                <span id="last-updated">Updating...</span>
+            </div>
+        </header>
+
+        <main id="experiment-grid" class="grid-container">
+            <!-- Cards will be injected here by app.js -->
+            <div class="loading-state">
+                <i class="fa-solid fa-circle-notch fa-spin"></i>
+                <p>Loading Experiments...</p>
+            </div>
+        </main>
+    </div>
+
+    <!-- Template for Experiment Card -->
+    <template id="card-template">
+        <article class="experiment-card">
+            <div class="card-header">
+                <div class="badges">
+                    <span class="badge dataset-badge">DATASET</span>
+                    <span class="badge time-badge">TIME</span>
+                </div>
+                <h2 class="exp-id">ID</h2>
+            </div>
+            
+            <div class="card-body">
+                <div class="metric-row">
+                    <div class="metric">
+                        <span class="label">Best Variator</span>
+                        <span class="value highlight-text best-variator">--</span>
+                    </div>
+                </div>
+                
+                <div class="charts-gallery">
+                    <div class="chart-item">
+                        <h4>Accuracy</h4>
+                        <img class="chart-img chart-accuracy" src="" alt="Accuracy Comparison" loading="lazy">
+                    </div>
+                    <div class="chart-item">
+                        <h4>Latency</h4>
+                        <img class="chart-img chart-latency" src="" alt="Latency Distribution" loading="lazy">
+                    </div>
+                    <div class="chart-item">
+                        <h4>Token Cost</h4>
+                        <img class="chart-img chart-tokens" src="" alt="Token Usage" loading="lazy">
+                    </div>
+                </div>
+
+                <div class="details-list">
+                    <!-- Dynamic details -->
+                </div>
+            </div>
+
+            <div class="card-footer">
+                <button class="action-btn view-btn">
+                    <i class="fa-solid fa-chart-line"></i> View Report
+                </button>
+            </div>
+        </article>
+    </template>
+
+    <script src="app.js"></script>
+</body>
+</html>

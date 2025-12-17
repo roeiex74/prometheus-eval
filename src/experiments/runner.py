@@ -62,16 +62,35 @@ def run_inference_task(prompt: str) -> str:
     if _worker_provider is None:
         return "Error: Provider not initialized"
     
+    start_time = time.time()
     try:
         response = _worker_provider.generate(
             prompt=prompt,
             temperature=0.7,
             max_tokens=256
         )
-        return response.strip()
+        end_time = time.time()
+        latency_ms = (end_time - start_time) * 1000
+        
+        # Calculate tokens
+        input_tokens = _worker_provider.count_tokens(prompt)
+        output_tokens = _worker_provider.count_tokens(response)
+        
+        return {
+            "output": response.strip(),
+            "latency_ms": latency_ms,
+            "input_tokens": input_tokens,
+            "output_tokens": output_tokens
+        }
     except Exception as e:
         print(f"Error processing prompt: {e}")
-        return ""
+        return {
+            "output": "",
+            "latency_ms": 0,
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "error": str(e)
+        }
 
 class ExperimentRunner:
 
@@ -267,9 +286,17 @@ class ExperimentRunner:
         print(f"Running inference with {self.num_workers} workers...")
         predictions = self._run_parallel_inference(prompts)
 
+        # Extract text for evaluation
+        prediction_texts = [p["output"] for p in predictions]
+        
+        # Aggregate metrics
+        total_input_tokens = sum(p["input_tokens"] for p in predictions)
+        total_output_tokens = sum(p["output_tokens"] for p in predictions)
+        avg_latency = sum(p["latency_ms"] for p in predictions) / len(predictions) if predictions else 0
+
         # Evaluate accuracy
         eval_results = self.evaluator.evaluate(
-            predictions=predictions,
+            predictions=prediction_texts,
             ground_truth=expected,
             dataset_items=dataset_items
         )
@@ -281,8 +308,11 @@ class ExperimentRunner:
             **eval_results,
             "total_time": total_time,
             "avg_time_per_sample": total_time / len(inputs) if inputs else 0,
+            "avg_latency_ms": avg_latency,
+            "total_input_tokens": total_input_tokens,
+            "total_output_tokens": total_output_tokens,
             "variator_config": variator.get_metadata(),
-            "predictions": predictions[:5],  # Save first 5 for inspection
+            "predictions": predictions,  # Save all detailed predictions
         }
 
 
@@ -315,18 +345,36 @@ class ExperimentRunner:
 
         return results
 
-    def _process_single_prompt_sequential(self, prompt: str) -> str:
+    def _process_single_prompt_sequential(self, prompt: str) -> Dict[str, Any]:
         """Sequential processing using the instance provider."""
+        start_time = time.time()
         try:
             response = self.llm_provider.generate(
                 prompt=prompt,
                 temperature=0.7,
                 max_tokens=256
             )
-            return response.strip()
+            end_time = time.time()
+            latency_ms = (end_time - start_time) * 1000
+            
+            input_tokens = self.llm_provider.count_tokens(prompt)
+            output_tokens = self.llm_provider.count_tokens(response)
+            
+            return {
+                "output": response.strip(),
+                "latency_ms": latency_ms,
+                "input_tokens": input_tokens,
+                "output_tokens": output_tokens
+            }
         except Exception as e:
             print(f"Error processing prompt: {e}")
-            return ""
+            return {
+                "output": "",
+                "latency_ms": 0,
+                "input_tokens": 0,
+                "output_tokens": 0,
+                "error": str(e)
+            }
 
     def _create_comparison(self, all_results: Dict[str, Dict]) -> Dict[str, Any]:
         """
