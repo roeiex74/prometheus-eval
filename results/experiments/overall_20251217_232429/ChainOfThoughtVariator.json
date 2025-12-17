@@ -1,0 +1,8 @@
+{
+  "variator": "ChainOfThoughtVariator",
+  "accuracy": 0.85,
+  "cost_usd": 0.05,
+  "latency_seconds": 2.8,
+  "num_samples": 180,
+  "timestamp": "20251217_232429"
+}

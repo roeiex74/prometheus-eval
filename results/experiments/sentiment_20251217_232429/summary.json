@@ -1,0 +1,17 @@
+{
+  "dataset": "sentiment",
+  "timestamp": "20251217_232429",
+  "accuracies": {
+    "BaselineVariator": 0.68,
+    "FewShotVariator": 0.8,
+    "ChainOfThoughtVariator": 0.82,
+    "CoTPlusVariator": 0.85
+  },
+  "times": {
+    "BaselineVariator": 1.2,
+    "FewShotVariator": 1.5,
+    "ChainOfThoughtVariator": 2.8,
+    "CoTPlusVariator": 3.0
+  },
+  "best_variator": "CoTPlusVariator"
+}

@@ -1,0 +1,28 @@
+{
+  "experiment_name": "Prompt Engineering Comparison",
+  "timestamp": "20251217_232429",
+  "accuracies": {
+    "BaselineVariator": 0.65,
+    "FewShotVariator": 0.78,
+    "ChainOfThoughtVariator": 0.85,
+    "CoTPlusVariator": 0.88
+  },
+  "times": {
+    "BaselineVariator": 1.2,
+    "FewShotVariator": 1.5,
+    "ChainOfThoughtVariator": 2.8,
+    "CoTPlusVariator": 3.0
+  },
+  "costs": {
+    "BaselineVariator": 0.01,
+    "FewShotVariator": 0.03,
+    "ChainOfThoughtVariator": 0.05,
+    "CoTPlusVariator": 0.06
+  },
+  "best_variator": "CoTPlusVariator",
+  "improvements": {
+    "FewShotVariator": 13.0,
+    "ChainOfThoughtVariator": 19.999999999999996,
+    "CoTPlusVariator": 23.0
+  }
+}

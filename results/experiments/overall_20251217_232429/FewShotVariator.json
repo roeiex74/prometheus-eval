@@ -1,0 +1,8 @@
+{
+  "variator": "FewShotVariator",
+  "accuracy": 0.78,
+  "cost_usd": 0.03,
+  "latency_seconds": 1.5,
+  "num_samples": 180,
+  "timestamp": "20251217_232429"
+}

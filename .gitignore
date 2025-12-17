@@ -131,21 +131,40 @@ transformers_cache/
 # =============================================================================
 # Output & Results
 # =============================================================================
-# Generated visualizations
+# Generated visualizations (but keep experimental results!)
 output/
+# Ignore results/ by default
 results/
+# BUT: Keep experimental results and visualizations
+!results/experiments/
+!results/experiments/**/*.json
+!results/experiments/**/*.png
+!results/visualizations/
+!results/visualizations/*.png
+
+# Ignore image files by default
 *.png
 *.svg
 *.pdf
+# BUT: Keep documentation images and experimental results
 !docs/**/*.png
 !docs/**/*.svg
+!results/experiments/**/*.png
+!results/visualizations/*.png
 
 # Exported data
 *.csv
 *.parquet
+# Ignore JSON by default
 *.json
+# BUT: Keep specific JSON files
 !data/benchmarks/**/*.json
+!data/datasets/**/*.json
 !tests/fixtures/**/*.json
+!results/experiments/**/*.json
+!pyproject.toml
+!package.json
+!tsconfig.json
 
 # =============================================================================
 # System

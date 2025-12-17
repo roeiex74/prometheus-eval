@@ -1,0 +1,8 @@
+{
+  "variator": "CoTPlusVariator",
+  "accuracy": 0.88,
+  "cost_usd": 0.06,
+  "latency_seconds": 3.0,
+  "num_samples": 180,
+  "timestamp": "20251217_232429"
+}

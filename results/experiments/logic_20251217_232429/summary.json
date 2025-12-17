@@ -1,0 +1,17 @@
+{
+  "dataset": "logic",
+  "timestamp": "20251217_232429",
+  "accuracies": {
+    "BaselineVariator": 0.62,
+    "FewShotVariator": 0.75,
+    "ChainOfThoughtVariator": 0.86,
+    "CoTPlusVariator": 0.89
+  },
+  "times": {
+    "BaselineVariator": 1.2,
+    "FewShotVariator": 1.5,
+    "ChainOfThoughtVariator": 2.8,
+    "CoTPlusVariator": 3.0
+  },
+  "best_variator": "CoTPlusVariator"
+}

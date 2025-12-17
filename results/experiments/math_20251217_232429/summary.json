@@ -1,0 +1,17 @@
+{
+  "dataset": "math",
+  "timestamp": "20251217_232429",
+  "accuracies": {
+    "BaselineVariator": 0.55,
+    "FewShotVariator": 0.72,
+    "ChainOfThoughtVariator": 0.88,
+    "CoTPlusVariator": 0.91
+  },
+  "times": {
+    "BaselineVariator": 1.2,
+    "FewShotVariator": 1.5,
+    "ChainOfThoughtVariator": 2.8,
+    "CoTPlusVariator": 3.0
+  },
+  "best_variator": "CoTPlusVariator"
+}

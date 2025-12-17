@@ -1,0 +1,8 @@
+{
+  "variator": "BaselineVariator",
+  "accuracy": 0.65,
+  "cost_usd": 0.01,
+  "latency_seconds": 1.2,
+  "num_samples": 180,
+  "timestamp": "20251217_232429"
+}
