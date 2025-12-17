@@ -1,0 +1,482 @@
+[
+  {
+    "id": 1,
+    "input": "All cats are animals. Fluffy is a cat. Is Fluffy an animal?",
+    "expected": "yes",
+    "category": "logic",
+    "subcategory": "syllogism",
+    "reasoning": "If all cats are animals, and Fluffy is a cat, then Fluffy must be an animal."
+  },
+  {
+    "id": 2,
+    "input": "If it rains, the ground gets wet. The ground is wet. Did it rain?",
+    "expected": "not necessarily",
+    "category": "logic",
+    "subcategory": "conditional",
+    "reasoning": "The ground could be wet from other sources (sprinklers, snow melting, etc.). This is affirming the consequent fallacy."
+  },
+  {
+    "id": 3,
+    "input": "All roses are flowers. Some flowers are red. Are all roses red?",
+    "expected": "no",
+    "category": "logic",
+    "subcategory": "syllogism",
+    "reasoning": "Just because some flowers are red doesn't mean all roses are red. There are roses of many colors."
+  },
+  {
+    "id": 4,
+    "input": "If John studies hard, he will pass the exam. John passed the exam. Did John study hard?",
+    "expected": "not necessarily",
+    "category": "logic",
+    "subcategory": "conditional",
+    "reasoning": "John could have passed for other reasons (prior knowledge, lucky guessing, etc.)."
+  },
+  {
+    "id": 5,
+    "input": "Every student in the class has a pencil. Maria is a student in the class. Does Maria have a pencil?",
+    "expected": "yes",
+    "category": "logic",
+    "subcategory": "syllogism",
+    "reasoning": "If every student has a pencil and Maria is a student, Maria must have a pencil."
+  },
+  {
+    "id": 6,
+    "input": "If it's Tuesday, then the library is open. It's not Tuesday. Is the library closed?",
+    "expected": "not necessarily",
+    "category": "logic",
+    "subcategory": "conditional",
+    "reasoning": "The library could be open on other days too. We only know it's definitely open on Tuesday."
+  },
+  {
+    "id": 7,
+    "input": "Some birds can fly. Penguins are birds. Can penguins fly?",
+    "expected": "not necessarily",
+    "category": "logic",
+    "subcategory": "syllogism",
+    "reasoning": "Just because some birds can fly doesn't mean all birds can fly. Penguins are flightless birds."
+  },
+  {
+    "id": 8,
+    "input": "All mammals breathe air. Whales breathe air. Are whales mammals?",
+    "expected": "not necessarily",
+    "category": "logic",
+    "subcategory": "syllogism",
+    "reasoning": "While it's true that whales are mammals, this conclusion doesn't follow from the premises alone. Other animals also breathe air."
+  },
+  {
+    "id": 9,
+    "input": "Either it will rain or it will snow. It's not raining. Will it snow?",
+    "expected": "yes",
+    "category": "logic",
+    "subcategory": "disjunction",
+    "reasoning": "If it's either rain or snow, and it's not raining, then it must be snowing (assuming the either/or is exclusive)."
+  },
+  {
+    "id": 10,
+    "input": "If a shape has four equal sides, it's a square. This shape has four equal sides. Is it a square?",
+    "expected": "not necessarily",
+    "category": "logic",
+    "subcategory": "conditional",
+    "reasoning": "A rhombus also has four equal sides but isn't a square. Squares also need four right angles."
+  },
+  {
+    "id": 11,
+    "input": "No vegetarians eat meat. Bob eats meat. Is Bob a vegetarian?",
+    "expected": "no",
+    "category": "logic",
+    "subcategory": "negation",
+    "reasoning": "If no vegetarians eat meat, and Bob eats meat, then Bob cannot be a vegetarian."
+  },
+  {
+    "id": 12,
+    "input": "All doctors are educated. Some educated people are wealthy. Are all doctors wealthy?",
+    "expected": "no",
+    "category": "logic",
+    "subcategory": "syllogism",
+    "reasoning": "Just because some educated people are wealthy doesn't mean all educated people (including doctors) are wealthy."
+  },
+  {
+    "id": 13,
+    "input": "If the alarm rings, there's a fire. The alarm is ringing. Is there a fire?",
+    "expected": "yes",
+    "category": "logic",
+    "subcategory": "modus_ponens",
+    "reasoning": "This is valid modus ponens: if P then Q, P is true, therefore Q is true."
+  },
+  {
+    "id": 14,
+    "input": "All prime numbers greater than 2 are odd. 7 is odd. Is 7 a prime number greater than 2?",
+    "expected": "not necessarily",
+    "category": "logic",
+    "subcategory": "conditional",
+    "reasoning": "While 7 happens to be prime, the logic doesn't follow. Many odd numbers (9, 15, 21) are not prime."
+  },
+  {
+    "id": 15,
+    "input": "If Tom is taller than Jerry, and Jerry is taller than Mike, is Tom taller than Mike?",
+    "expected": "yes",
+    "category": "logic",
+    "subcategory": "transitivity",
+    "reasoning": "Height comparison is transitive. If A > B and B > C, then A > C."
+  },
+  {
+    "id": 16,
+    "input": "Every teacher at this school speaks English. Mr. Smith speaks English. Does Mr. Smith teach at this school?",
+    "expected": "not necessarily",
+    "category": "logic",
+    "subcategory": "conditional",
+    "reasoning": "Many people who aren't teachers at this school also speak English."
+  },
+  {
+    "id": 17,
+    "input": "All squares are rectangles. This shape is not a rectangle. Is it a square?",
+    "expected": "no",
+    "category": "logic",
+    "subcategory": "modus_tollens",
+    "reasoning": "If all squares are rectangles, and this isn't a rectangle, it can't be a square."
+  },
+  {
+    "id": 18,
+    "input": "Some politicians are honest. John is a politician. Is John honest?",
+    "expected": "not necessarily",
+    "category": "logic",
+    "subcategory": "quantifiers",
+    "reasoning": "Some doesn't mean all. We can't determine if John is one of the honest ones."
+  },
+  {
+    "id": 19,
+    "input": "If it's a weekday, Alice goes to work. Today is Saturday. Does Alice go to work?",
+    "expected": "not necessarily",
+    "category": "logic",
+    "subcategory": "conditional",
+    "reasoning": "We only know she goes to work on weekdays. Saturday is not a weekday, so we can't determine if she works."
+  },
+  {
+    "id": 20,
+    "input": "All tigers are striped. This animal is striped. Is it a tiger?",
+    "expected": "not necessarily",
+    "category": "logic",
+    "subcategory": "affirming_consequent",
+    "reasoning": "Other animals (zebras, chipmunks) are also striped. This is the fallacy of affirming the consequent."
+  },
+  {
+    "id": 21,
+    "input": "Either the car is red or blue. The car is red. Is the car blue?",
+    "expected": "no",
+    "category": "logic",
+    "subcategory": "disjunction",
+    "reasoning": "If it's either red or blue (exclusive or), and it's red, it cannot be blue."
+  },
+  {
+    "id": 22,
+    "input": "All even numbers are divisible by 2. 8 is divisible by 2. Is 8 an even number?",
+    "expected": "not necessarily",
+    "category": "logic",
+    "subcategory": "conditional",
+    "reasoning": "While 8 is even, the logic doesn't guarantee this. We'd need the converse (all numbers divisible by 2 are even) which is actually true, but not stated."
+  },
+  {
+    "id": 23,
+    "input": "No reptiles have fur. Snakes are reptiles. Do snakes have fur?",
+    "expected": "no",
+    "category": "logic",
+    "subcategory": "syllogism",
+    "reasoning": "If no reptiles have fur and snakes are reptiles, then snakes don't have fur."
+  },
+  {
+    "id": 24,
+    "input": "If Sarah practices piano, she improves. Sarah is improving. Is she practicing piano?",
+    "expected": "not necessarily",
+    "category": "logic",
+    "subcategory": "affirming_consequent",
+    "reasoning": "She could be improving from lessons, natural talent development, or other factors."
+  },
+  {
+    "id": 25,
+    "input": "All circles are round. This shape is round. Is it a circle?",
+    "expected": "not necessarily",
+    "category": "logic",
+    "subcategory": "conditional",
+    "reasoning": "Other shapes (spheres, ellipses, ovals) can also be considered round."
+  },
+  {
+    "id": 26,
+    "input": "Every number divisible by 10 is divisible by 5. 40 is divisible by 10. Is 40 divisible by 5?",
+    "expected": "yes",
+    "category": "logic",
+    "subcategory": "modus_ponens",
+    "reasoning": "Valid modus ponens: If P then Q, P is true, therefore Q is true."
+  },
+  {
+    "id": 27,
+    "input": "Some athletes are vegetarians. Mike is an athlete. Is Mike a vegetarian?",
+    "expected": "not necessarily",
+    "category": "logic",
+    "subcategory": "quantifiers",
+    "reasoning": "Some doesn't mean all. We can't determine if Mike is one of the vegetarian athletes."
+  },
+  {
+    "id": 28,
+    "input": "If it's winter, it's cold. It's not cold. Is it winter?",
+    "expected": "no",
+    "category": "logic",
+    "subcategory": "modus_tollens",
+    "reasoning": "If winter implies cold, and it's not cold, then it's not winter."
+  },
+  {
+    "id": 29,
+    "input": "All dogs are canines. All canines are mammals. Are all dogs mammals?",
+    "expected": "yes",
+    "category": "logic",
+    "subcategory": "syllogism",
+    "reasoning": "Transitive property: If all dogs are canines, and all canines are mammals, then all dogs are mammals."
+  },
+  {
+    "id": 30,
+    "input": "Either we go to the beach or the mountains. We're not going to the beach. Are we going to the mountains?",
+    "expected": "yes",
+    "category": "logic",
+    "subcategory": "disjunction",
+    "reasoning": "In an exclusive or, if one option is false, the other must be true."
+  },
+  {
+    "id": 31,
+    "input": "No fish can live on land. Goldfish are fish. Can goldfish live on land?",
+    "expected": "no",
+    "category": "logic",
+    "subcategory": "syllogism",
+    "reasoning": "If no fish can live on land and goldfish are fish, goldfish cannot live on land."
+  },
+  {
+    "id": 32,
+    "input": "If a number is prime, it has exactly two divisors. 15 has more than two divisors. Is 15 prime?",
+    "expected": "no",
+    "category": "logic",
+    "subcategory": "modus_tollens",
+    "reasoning": "If prime implies exactly two divisors, and 15 has more, then 15 is not prime."
+  },
+  {
+    "id": 33,
+    "input": "All successful entrepreneurs work hard. Lisa works hard. Is Lisa a successful entrepreneur?",
+    "expected": "not necessarily",
+    "category": "logic",
+    "subcategory": "affirming_consequent",
+    "reasoning": "Many people work hard but aren't successful entrepreneurs. This is affirming the consequent fallacy."
+  },
+  {
+    "id": 34,
+    "input": "Some books are bestsellers. Bestsellers are popular. Are some books popular?",
+    "expected": "yes",
+    "category": "logic",
+    "subcategory": "syllogism",
+    "reasoning": "If some books are bestsellers and bestsellers are popular, then some books are popular."
+  },
+  {
+    "id": 35,
+    "input": "If Tom is older than Lisa, and Lisa is older than Sam, who is younger: Tom or Sam?",
+    "expected": "Sam",
+    "category": "logic",
+    "subcategory": "transitivity",
+    "reasoning": "By transitive property, Tom > Lisa > Sam, so Sam is youngest."
+  },
+  {
+    "id": 36,
+    "input": "All roses have thorns. This plant has thorns. Is it a rose?",
+    "expected": "not necessarily",
+    "category": "logic",
+    "subcategory": "affirming_consequent",
+    "reasoning": "Many other plants also have thorns (cacti, blackberries, etc.)."
+  },
+  {
+    "id": 37,
+    "input": "If you study, you'll pass. You didn't study. Will you pass?",
+    "expected": "not necessarily",
+    "category": "logic",
+    "subcategory": "denying_antecedent",
+    "reasoning": "You could still pass without studying (prior knowledge, lucky guesses). This is denying the antecedent fallacy."
+  },
+  {
+    "id": 38,
+    "input": "No mammals lay eggs. Platypuses lay eggs. Are platypuses mammals?",
+    "expected": "no",
+    "category": "logic",
+    "subcategory": "syllogism",
+    "reasoning": "If no mammals lay eggs and platypuses lay eggs, platypuses aren't mammals (though in reality they are - this shows why premises matter)."
+  },
+  {
+    "id": 39,
+    "input": "All triangles have three sides. This shape has three sides. Is it a triangle?",
+    "expected": "not necessarily",
+    "category": "logic",
+    "subcategory": "conditional",
+    "reasoning": "While it might be a triangle, having three sides isn't sufficient - the sides must also be connected properly."
+  },
+  {
+    "id": 40,
+    "input": "If it's sunny, we'll go to the park. It's sunny. Will we go to the park?",
+    "expected": "yes",
+    "category": "logic",
+    "subcategory": "modus_ponens",
+    "reasoning": "Valid modus ponens: If sunny then park, it is sunny, therefore we'll go to the park."
+  },
+  {
+    "id": 41,
+    "input": "Some cars are electric. Electric cars are environmentally friendly. Are some cars environmentally friendly?",
+    "expected": "yes",
+    "category": "logic",
+    "subcategory": "syllogism",
+    "reasoning": "If some cars are electric and electric cars are environmentally friendly, then some cars are environmentally friendly."
+  },
+  {
+    "id": 42,
+    "input": "All smartphones have screens. This device has a screen. Is it a smartphone?",
+    "expected": "not necessarily",
+    "category": "logic",
+    "subcategory": "affirming_consequent",
+    "reasoning": "Many devices have screens (tablets, TVs, computers, etc.)."
+  },
+  {
+    "id": 43,
+    "input": "If the store is closed, the lights are off. The lights are off. Is the store closed?",
+    "expected": "not necessarily",
+    "category": "logic",
+    "subcategory": "affirming_consequent",
+    "reasoning": "The lights could be off for other reasons (saving energy during slow hours, broken, etc.)."
+  },
+  {
+    "id": 44,
+    "input": "No odd number is divisible by 2. 7 is not divisible by 2. Is 7 odd?",
+    "expected": "not necessarily",
+    "category": "logic",
+    "subcategory": "conditional",
+    "reasoning": "While 7 is odd, we'd need to know that all numbers not divisible by 2 are odd, which isn't stated."
+  },
+  {
+    "id": 45,
+    "input": "All apples are fruits. All fruits grow on plants. Do all apples grow on plants?",
+    "expected": "yes",
+    "category": "logic",
+    "subcategory": "syllogism",
+    "reasoning": "Transitive: All apples are fruits, all fruits grow on plants, therefore all apples grow on plants."
+  },
+  {
+    "id": 46,
+    "input": "Either the door is locked or unlocked. The door is not locked. Is it unlocked?",
+    "expected": "yes",
+    "category": "logic",
+    "subcategory": "disjunction",
+    "reasoning": "If the door can only be locked or unlocked, and it's not locked, it must be unlocked."
+  },
+  {
+    "id": 47,
+    "input": "Some politicians are corrupt. Some corrupt people go to jail. Do some politicians go to jail?",
+    "expected": "not necessarily",
+    "category": "logic",
+    "subcategory": "syllogism",
+    "reasoning": "The logic doesn't connect. The corrupt politicians might not be the same corrupt people who go to jail."
+  },
+  {
+    "id": 48,
+    "input": "If a student studies hard, they get good grades. Emma has good grades. Did Emma study hard?",
+    "expected": "not necessarily",
+    "category": "logic",
+    "subcategory": "affirming_consequent",
+    "reasoning": "Emma could have good grades from natural ability, prior knowledge, or other factors."
+  },
+  {
+    "id": 49,
+    "input": "All squares have four sides. All rectangles have four sides. Are all squares rectangles?",
+    "expected": "yes",
+    "category": "logic",
+    "subcategory": "syllogism",
+    "reasoning": "Actually yes - all squares are rectangles (though not all rectangles are squares). Squares are special rectangles with equal sides."
+  },
+  {
+    "id": 50,
+    "input": "No reptiles are warm-blooded. Lizards are reptiles. Are lizards warm-blooded?",
+    "expected": "no",
+    "category": "logic",
+    "subcategory": "syllogism",
+    "reasoning": "If no reptiles are warm-blooded and lizards are reptiles, lizards are not warm-blooded."
+  },
+  {
+    "id": 51,
+    "input": "If the temperature is below freezing, water turns to ice. Water turned to ice. Was the temperature below freezing?",
+    "expected": "yes",
+    "category": "logic",
+    "subcategory": "modus_ponens",
+    "reasoning": "In normal conditions, if below freezing then ice, and we have ice, the temperature was below freezing (though technically other factors could freeze water)."
+  },
+  {
+    "id": 52,
+    "input": "All birds have feathers. Robins have feathers. Are robins birds?",
+    "expected": "not necessarily",
+    "category": "logic",
+    "subcategory": "affirming_consequent",
+    "reasoning": "While robins are birds, this doesn't follow logically from the premises alone (though in reality, only birds have feathers)."
+  },
+  {
+    "id": 53,
+    "input": "If it rains, the game is cancelled. The game is not cancelled. Did it rain?",
+    "expected": "no",
+    "category": "logic",
+    "subcategory": "modus_tollens",
+    "reasoning": "If rain implies cancelled, and the game is not cancelled, then it didn't rain."
+  },
+  {
+    "id": 54,
+    "input": "Some doctors are surgeons. All surgeons have medical training. Do some doctors have medical training?",
+    "expected": "yes",
+    "category": "logic",
+    "subcategory": "syllogism",
+    "reasoning": "If some doctors are surgeons and all surgeons have medical training, then some doctors have medical training."
+  },
+  {
+    "id": 55,
+    "input": "All metal conducts electricity. Copper conducts electricity. Is copper metal?",
+    "expected": "not necessarily",
+    "category": "logic",
+    "subcategory": "affirming_consequent",
+    "reasoning": "While copper is metal, other materials also conduct electricity (salt water, plasma, etc.)."
+  },
+  {
+    "id": 56,
+    "input": "No vegetarian eats chicken. Mark eats chicken. Is Mark a vegetarian?",
+    "expected": "no",
+    "category": "logic",
+    "subcategory": "modus_tollens",
+    "reasoning": "If no vegetarian eats chicken and Mark eats chicken, Mark is not a vegetarian."
+  },
+  {
+    "id": 57,
+    "input": "If a shape has three sides, it's a triangle. A pentagon is not a triangle. How many sides does a pentagon have?",
+    "expected": "not three",
+    "category": "logic",
+    "subcategory": "modus_tollens",
+    "reasoning": "If three sides implies triangle, and pentagon is not a triangle, it doesn't have three sides (it has five)."
+  },
+  {
+    "id": 58,
+    "input": "All prime numbers except 2 are odd. 5 is prime. Is 5 odd?",
+    "expected": "yes",
+    "category": "logic",
+    "subcategory": "syllogism",
+    "reasoning": "If all primes except 2 are odd, and 5 is prime (and not 2), then 5 is odd."
+  },
+  {
+    "id": 59,
+    "input": "Some athletes are vegetarians. Some vegetarians are healthy. Are some athletes healthy?",
+    "expected": "not necessarily",
+    "category": "logic",
+    "subcategory": "syllogism",
+    "reasoning": "The logic doesn't connect. The vegetarian athletes might not be the same vegetarians who are healthy."
+  },
+  {
+    "id": 60,
+    "input": "All cars have wheels. This vehicle is not a car. Does it have wheels?",
+    "expected": "not necessarily",
+    "category": "logic",
+    "subcategory": "denying_antecedent",
+    "reasoning": "Just because it's not a car doesn't mean it doesn't have wheels. Bicycles, trucks, motorcycles all have wheels."
+  }
+]

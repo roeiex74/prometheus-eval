@@ -1,0 +1,128 @@
+........................................................................ [ 22%]
+.....................s.......................................F.......... [ 44%]
+........................ssssssss...............sss...................... [ 67%]
+........................................................................ [ 89%]
+.................................                                        [100%]
+=================================== FAILURES ===================================
+_____________ TestBLEUValidation.test_sacrebleu_comparison_simple ______________
+
+self = <tests.test_metrics.test_bleu.TestBLEUValidation object at 0x3133e0180>
+
+    def test_sacrebleu_comparison_simple(self):
+        """Compare with sacrebleu on simple example."""
+        try:
+            import sacrebleu
+    
+            metric = BLEUMetric(max_n=4, smoothing="none")
+    
+            hypothesis = "The cat is on the mat"
+            reference = "The cat is sitting on the mat"
+    
+            # Our implementation
+            our_result = metric.compute(hypothesis, reference)
+    
+            # sacrebleu
+            sacre_result = sacrebleu.sentence_bleu(
+                hypothesis,
+                [reference],
+                smooth_method='none'
+            )
+    
+            # Scores should be very close (may differ slightly due to tokenization)
+            # We allow larger tolerance for this comparison
+>           assert abs(our_result['bleu'] - sacre_result.score / 100.0) < 0.1, \
+                f"Our BLEU ({our_result['bleu']}) differs significantly from " \
+                f"sacrebleu ({sacre_result.score / 100.0})"
+E               AssertionError: Our BLEU (0.6236930675040936) differs significantly from sacrebleu (0.0)
+E               assert 0.6236930675040936 < 0.1
+E                +  where 0.6236930675040936 = abs((0.6236930675040936 - (0.0 / 100.0)))
+E                +    where 0.0 = BLEU = 0.00 100.0/80.0/50.0/0.0 (BP = 0.846 ratio = 0.857 hyp_len = 6 ref_len = 7).score
+
+tests/test_metrics/test_bleu.py:473: AssertionError
+----------------------------- Captured stderr call -----------------------------
+2025-12-17 00:09:40.150 | DEBUG    | src.metrics.lexical.bleu:__init__:88 - Initialized BLEUMetric: max_n=4, smoothing=none, epsilon=0.1, k=1.0
+=============================== warnings summary ===============================
+src/inference/config_model.py:93
+  /Users/liorlivyatan/Desktop/Livyatan/MSc CS/LLM Course/HW6/src/inference/config_model.py:93: PydanticDeprecatedSince20: Pydantic V1 style `@validator` validators are deprecated. You should migrate to Pydantic V2 style `@field_validator` validators, see the migration guide for more details. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.10/migration/
+    @validator("log_level")
+
+src/inference/config_model.py:102
+  /Users/liorlivyatan/Desktop/Livyatan/MSc CS/LLM Course/HW6/src/inference/config_model.py:102: PydanticDeprecatedSince20: Pydantic V1 style `@validator` validators are deprecated. You should migrate to Pydantic V2 style `@field_validator` validators, see the migration guide for more details. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.10/migration/
+    @validator("default_temperature")
+
+../../../../../../../opt/miniconda3/lib/python3.13/site-packages/pydantic/_internal/_config.py:295
+  /opt/miniconda3/lib/python3.13/site-packages/pydantic/_internal/_config.py:295: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.10/migration/
+    warnings.warn(DEPRECATION_MESSAGE, DeprecationWarning)
+
+tests/test_inference/test_providers.py::TestOpenAIProvider::test_handle_openai_errors
+  /opt/miniconda3/lib/python3.13/unittest/mock.py:2245: RuntimeWarning: coroutine 'OpenAIProvider._async_generate' was never awaited
+    def __init__(self, name, parent):
+  Enable tracemalloc to get traceback where the object was allocated.
+  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+
+tests/test_inference/test_providers.py::TestAnthropicProvider::test_handle_anthropic_errors
+  /opt/miniconda3/lib/python3.13/unittest/mock.py:1128: RuntimeWarning: coroutine 'AnthropicProvider._async_generate' was never awaited
+    def _try_iter(obj):
+  Enable tracemalloc to get traceback where the object was allocated.
+  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+
+tests/test_inference/test_providers.py::TestAnthropicEdgeCases::test_count_tokens_error_fallback
+  /opt/miniconda3/lib/python3.13/unittest/mock.py:2245: RuntimeWarning: coroutine 'AnthropicProvider._async_generate_batch' was never awaited
+    def __init__(self, name, parent):
+  Enable tracemalloc to get traceback where the object was allocated.
+  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+
+tests/test_metrics/test_bertscore.py::TestBERTScoreBasic::test_identical_sentences
+  <frozen abc>:107: RuntimeWarning: coroutine 'OpenAIProvider._async_generate_batch' was never awaited
+  Enable tracemalloc to get traceback where the object was allocated.
+  See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+================================ tests coverage ================================
+_______________ coverage: platform darwin, python 3.13.2-final-0 _______________
+
+Name                                    Stmts   Miss  Cover   Missing
+---------------------------------------------------------------------
+src/__init__.py                             2      0   100%
+src/analysis/__init__.py                    1      1     0%   13
+src/evaluator/__init__.py                   2      0   100%
+src/evaluator/executor.py                 111     93    16%   59-71, 80-88, 116-153, 170-240, 257-299, 311-318, 326-345, 349, 353
+src/inference/__init__.py                   5      0   100%
+src/inference/anthropic_provider.py        90     50    44%   121-123, 141-144, 172-242, 322-350, 427-428
+src/inference/base.py                      93     15    84%   141, 171, 188, 197, 217-218, 368-380
+src/inference/config.py                     3      0   100%
+src/inference/config_loader.py             32      1    97%   37
+src/inference/config_model.py              48      1    98%   106
+src/inference/openai_provider.py           95     39    59%   161, 191-252, 328-356, 428-429
+src/metrics/__init__.py                     1      0   100%
+src/metrics/lexical/__init__.py             2      0   100%
+src/metrics/lexical/bleu.py               170     16    91%   31-33, 220, 380, 411, 525, 562-588
+src/metrics/lexical/meteor.py              86      0   100%
+src/metrics/lexical/rouge.py               77      4    95%   12-13, 66, 113
+src/metrics/logic/__init__.py               3      0   100%
+src/metrics/logic/pass_at_k.py            130     40    69%   53, 206, 232-235, 316-321, 342-356, 376-407, 424-448
+src/metrics/logic/perplexity.py            34      0   100%
+src/metrics/semantic/__init__.py            4      0   100%
+src/metrics/semantic/bertscore.py         147     63    57%   89, 93, 105-107, 152, 176-177, 274-281, 377-392, 427-459, 464-515
+src/metrics/semantic/stability.py          35      0   100%
+src/metrics/semantic/tone.py               47      1    98%   86
+src/variator/__init__.py                    1      1     0%   13
+src/visualization/__init__.py               1      1     0%   13
+src/visualization/backend/__init__.py       0      0   100%
+---------------------------------------------------------------------
+TOTAL                                    1220    326    73%
+=========================== short test summary info ============================
+SKIPPED [1] tests/test_metrics/test_bertscore.py:400: CUDA not available
+SKIPPED [1] tests/test_metrics/test_pass_at_k.py:55: Docker not available
+SKIPPED [1] tests/test_metrics/test_pass_at_k.py:69: Docker not available
+SKIPPED [1] tests/test_metrics/test_pass_at_k.py:82: Docker not available
+SKIPPED [1] tests/test_metrics/test_pass_at_k.py:101: Docker not available
+SKIPPED [1] tests/test_metrics/test_pass_at_k.py:113: Docker not available
+SKIPPED [1] tests/test_metrics/test_pass_at_k.py:126: Docker not available
+SKIPPED [1] tests/test_metrics/test_pass_at_k.py:145: Docker not available
+SKIPPED [1] tests/test_metrics/test_pass_at_k.py:164: Docker not available
+SKIPPED [1] tests/test_metrics/test_pass_at_k.py:512: Docker not available
+SKIPPED [1] tests/test_metrics/test_pass_at_k.py:528: Docker not available
+SKIPPED [1] tests/test_metrics/test_pass_at_k.py:535: Docker not available
+FAILED tests/test_metrics/test_bleu.py::TestBLEUValidation::test_sacrebleu_comparison_simple
+1 failed, 308 passed, 12 skipped, 7 warnings in 105.78s (0:01:45)

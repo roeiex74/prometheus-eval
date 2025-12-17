@@ -1,13 +1,25 @@
 """
-Prompt Variator (Phase 2)
+Prompt Variator Module
 
-Module for generating systematic variations of prompts for comparative analysis.
-Planned features:
-- Paraphrasing
-- Emotional intensity scaling
-- Chain-of-Thought augmentation
-- Few-shot example selection
+Systematic variations of prompts for comparative analysis.
+
+Implemented variators:
+- BaselineVariator: Simple prompt wrapper (control group)
+- FewShotVariator: 1-3 example demonstrations
+- ChainOfThoughtVariator: Step-by-step reasoning prompts
+- CoTPlusVariator: CoT with majority voting (self-consistency)
 """
 
-# Placeholder for Phase 2 implementation
-__all__ = []
+from src.variator.base import BaseVariator
+from src.variator.baseline import BaselineVariator
+from src.variator.few_shot import FewShotVariator
+from src.variator.cot import ChainOfThoughtVariator
+from src.variator.cot_plus import CoTPlusVariator
+
+__all__ = [
+    "BaseVariator",
+    "BaselineVariator",
+    "FewShotVariator",
+    "ChainOfThoughtVariator",
+    "CoTPlusVariator",
+]

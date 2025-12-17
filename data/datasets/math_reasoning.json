@@ -1,0 +1,482 @@
+[
+  {
+    "id": 1,
+    "input": "If John has 5 apples and gives away 2, then finds 3 more, how many apples does he have?",
+    "expected": "6",
+    "category": "math",
+    "subcategory": "arithmetic",
+    "steps": ["Start: 5", "Give away 2: 5-2=3", "Find 3: 3+3=6"]
+  },
+  {
+    "id": 2,
+    "input": "A train travels 60 miles in 2 hours. At the same speed, how far will it travel in 5 hours?",
+    "expected": "150",
+    "category": "math",
+    "subcategory": "rates",
+    "steps": ["Speed = 60/2 = 30 mph", "Distance = 30 * 5 = 150 miles"]
+  },
+  {
+    "id": 3,
+    "input": "Sarah has twice as many books as Tom. If Tom has 12 books, how many books does Sarah have?",
+    "expected": "24",
+    "category": "math",
+    "subcategory": "multiplication",
+    "steps": ["Tom has 12 books", "Sarah has 2 * 12 = 24 books"]
+  },
+  {
+    "id": 4,
+    "input": "A rectangular garden is 8 meters long and 5 meters wide. What is its perimeter?",
+    "expected": "26",
+    "category": "math",
+    "subcategory": "geometry",
+    "steps": ["Perimeter = 2 * (length + width)", "Perimeter = 2 * (8 + 5) = 2 * 13 = 26 meters"]
+  },
+  {
+    "id": 5,
+    "input": "If 3 pencils cost $6, how much do 7 pencils cost?",
+    "expected": "14",
+    "category": "math",
+    "subcategory": "proportions",
+    "steps": ["Price per pencil = 6/3 = $2", "Cost of 7 pencils = 7 * 2 = $14"]
+  },
+  {
+    "id": 6,
+    "input": "A baker makes 24 cupcakes and sells them in boxes of 4. How many boxes can she fill?",
+    "expected": "6",
+    "category": "math",
+    "subcategory": "division",
+    "steps": ["Total cupcakes = 24", "Cupcakes per box = 4", "Number of boxes = 24/4 = 6"]
+  },
+  {
+    "id": 7,
+    "input": "Mike earns $15 per hour. If he works 8 hours a day for 5 days, how much does he earn in total?",
+    "expected": "600",
+    "category": "math",
+    "subcategory": "multiplication",
+    "steps": ["Daily earnings = 15 * 8 = $120", "Weekly earnings = 120 * 5 = $600"]
+  },
+  {
+    "id": 8,
+    "input": "A pizza is cut into 8 equal slices. If 3 people each eat 2 slices, how many slices are left?",
+    "expected": "2",
+    "category": "math",
+    "subcategory": "subtraction",
+    "steps": ["Total slices = 8", "Slices eaten = 3 * 2 = 6", "Slices left = 8 - 6 = 2"]
+  },
+  {
+    "id": 9,
+    "input": "A number is 3 more than twice 7. What is the number?",
+    "expected": "17",
+    "category": "math",
+    "subcategory": "algebra",
+    "steps": ["Twice 7 = 2 * 7 = 14", "3 more than 14 = 14 + 3 = 17"]
+  },
+  {
+    "id": 10,
+    "input": "Emma has $50. She buys a book for $18 and a pen for $7. How much money does she have left?",
+    "expected": "25",
+    "category": "math",
+    "subcategory": "subtraction",
+    "steps": ["Total spent = 18 + 7 = $25", "Money left = 50 - 25 = $25"]
+  },
+  {
+    "id": 11,
+    "input": "If a car uses 1 gallon of gas to travel 30 miles, how many gallons does it need for a 180-mile trip?",
+    "expected": "6",
+    "category": "math",
+    "subcategory": "division",
+    "steps": ["Miles per gallon = 30", "Gallons needed = 180/30 = 6 gallons"]
+  },
+  {
+    "id": 12,
+    "input": "A store sells apples for $3 per pound. If you buy 4 pounds and pay with a $20 bill, how much change do you receive?",
+    "expected": "8",
+    "category": "math",
+    "subcategory": "arithmetic",
+    "steps": ["Cost = 3 * 4 = $12", "Change = 20 - 12 = $8"]
+  },
+  {
+    "id": 13,
+    "input": "What is the average of 10, 20, and 30?",
+    "expected": "20",
+    "category": "math",
+    "subcategory": "averages",
+    "steps": ["Sum = 10 + 20 + 30 = 60", "Count = 3", "Average = 60/3 = 20"]
+  },
+  {
+    "id": 14,
+    "input": "A square has sides of length 6 cm. What is its area?",
+    "expected": "36",
+    "category": "math",
+    "subcategory": "geometry",
+    "steps": ["Area of square = side * side", "Area = 6 * 6 = 36 cm²"]
+  },
+  {
+    "id": 15,
+    "input": "Lisa is 4 years older than her brother. If her brother is 9 years old, how old is Lisa?",
+    "expected": "13",
+    "category": "math",
+    "subcategory": "addition",
+    "steps": ["Brother's age = 9", "Lisa's age = 9 + 4 = 13"]
+  },
+  {
+    "id": 16,
+    "input": "If 5 workers can paint a house in 6 days, how many days would it take 3 workers at the same rate?",
+    "expected": "10",
+    "category": "math",
+    "subcategory": "proportions",
+    "steps": ["Total work = 5 * 6 = 30 worker-days", "Time for 3 workers = 30/3 = 10 days"]
+  },
+  {
+    "id": 17,
+    "input": "A bag contains 15 red marbles and 25 blue marbles. What fraction of the marbles are red?",
+    "expected": "3/8",
+    "category": "math",
+    "subcategory": "fractions",
+    "steps": ["Total marbles = 15 + 25 = 40", "Fraction red = 15/40 = 3/8"]
+  },
+  {
+    "id": 18,
+    "input": "If 40% of a number is 20, what is the number?",
+    "expected": "50",
+    "category": "math",
+    "subcategory": "percentages",
+    "steps": ["0.4 * x = 20", "x = 20/0.4 = 50"]
+  },
+  {
+    "id": 19,
+    "input": "A triangle has angles of 60° and 70°. What is the third angle?",
+    "expected": "50",
+    "category": "math",
+    "subcategory": "geometry",
+    "steps": ["Sum of angles in triangle = 180°", "Third angle = 180 - 60 - 70 = 50°"]
+  },
+  {
+    "id": 20,
+    "input": "Tim has 3 times as many stickers as Amy. Together they have 48 stickers. How many does Tim have?",
+    "expected": "36",
+    "category": "math",
+    "subcategory": "algebra",
+    "steps": ["Let Amy have x stickers", "Tim has 3x", "x + 3x = 48", "4x = 48", "x = 12", "Tim has 3*12 = 36"]
+  },
+  {
+    "id": 21,
+    "input": "A recipe calls for 2 cups of flour for 12 cookies. How much flour is needed for 30 cookies?",
+    "expected": "5",
+    "category": "math",
+    "subcategory": "proportions",
+    "steps": ["Flour per cookie = 2/12 = 1/6 cup", "Flour for 30 = 30 * 1/6 = 5 cups"]
+  },
+  {
+    "id": 22,
+    "input": "If you save $5 every week, how much will you have after 10 weeks?",
+    "expected": "50",
+    "category": "math",
+    "subcategory": "multiplication",
+    "steps": ["Weekly savings = $5", "Total after 10 weeks = 5 * 10 = $50"]
+  },
+  {
+    "id": 23,
+    "input": "A bookshelf has 5 shelves, and each shelf holds 8 books. How many books can the bookshelf hold in total?",
+    "expected": "40",
+    "category": "math",
+    "subcategory": "multiplication",
+    "steps": ["Shelves = 5", "Books per shelf = 8", "Total = 5 * 8 = 40 books"]
+  },
+  {
+    "id": 24,
+    "input": "The temperature was 15°C in the morning. It increased by 8°C by noon. What was the noon temperature?",
+    "expected": "23",
+    "category": "math",
+    "subcategory": "addition",
+    "steps": ["Morning temp = 15°C", "Increase = 8°C", "Noon temp = 15 + 8 = 23°C"]
+  },
+  {
+    "id": 25,
+    "input": "A bus can seat 48 passengers. If 35 passengers are already on board, how many more can board?",
+    "expected": "13",
+    "category": "math",
+    "subcategory": "subtraction",
+    "steps": ["Total capacity = 48", "Current passengers = 35", "Available seats = 48 - 35 = 13"]
+  },
+  {
+    "id": 26,
+    "input": "If a dozen eggs cost $3.60, what is the cost of one egg?",
+    "expected": "0.30",
+    "category": "math",
+    "subcategory": "division",
+    "steps": ["Dozen = 12 eggs", "Cost per egg = 3.60/12 = $0.30"]
+  },
+  {
+    "id": 27,
+    "input": "A garden measures 12 feet by 15 feet. What is its area?",
+    "expected": "180",
+    "category": "math",
+    "subcategory": "geometry",
+    "steps": ["Area = length * width", "Area = 12 * 15 = 180 square feet"]
+  },
+  {
+    "id": 28,
+    "input": "Jack reads 20 pages per day. How many days will it take him to finish a 300-page book?",
+    "expected": "15",
+    "category": "math",
+    "subcategory": "division",
+    "steps": ["Pages per day = 20", "Total pages = 300", "Days needed = 300/20 = 15 days"]
+  },
+  {
+    "id": 29,
+    "input": "A number multiplied by 7 equals 84. What is the number?",
+    "expected": "12",
+    "category": "math",
+    "subcategory": "algebra",
+    "steps": ["7 * x = 84", "x = 84/7 = 12"]
+  },
+  {
+    "id": 30,
+    "input": "Maria has 48 candies and wants to share them equally among 6 friends. How many candies does each friend get?",
+    "expected": "8",
+    "category": "math",
+    "subcategory": "division",
+    "steps": ["Total candies = 48", "Number of friends = 6", "Candies per friend = 48/6 = 8"]
+  },
+  {
+    "id": 31,
+    "input": "A movie starts at 7:30 PM and lasts 2 hours and 15 minutes. What time does it end?",
+    "expected": "9:45 PM",
+    "category": "math",
+    "subcategory": "time",
+    "steps": ["Start = 7:30 PM", "Add 2 hours = 9:30 PM", "Add 15 minutes = 9:45 PM"]
+  },
+  {
+    "id": 32,
+    "input": "If 3 oranges cost $2.25, what is the cost of 5 oranges?",
+    "expected": "3.75",
+    "category": "math",
+    "subcategory": "proportions",
+    "steps": ["Cost per orange = 2.25/3 = $0.75", "Cost of 5 = 5 * 0.75 = $3.75"]
+  },
+  {
+    "id": 33,
+    "input": "A swimming pool is 25 meters long. If you swim 6 lengths, how many meters have you swum?",
+    "expected": "150",
+    "category": "math",
+    "subcategory": "multiplication",
+    "steps": ["Length of pool = 25 meters", "Number of lengths = 6", "Total distance = 25 * 6 = 150 meters"]
+  },
+  {
+    "id": 34,
+    "input": "If 8 notebooks cost $12, what is the cost of 1 notebook?",
+    "expected": "1.50",
+    "category": "math",
+    "subcategory": "division",
+    "steps": ["Total cost = $12", "Number of notebooks = 8", "Cost per notebook = 12/8 = $1.50"]
+  },
+  {
+    "id": 35,
+    "input": "A class has 30 students. If 18 are girls, how many are boys?",
+    "expected": "12",
+    "category": "math",
+    "subcategory": "subtraction",
+    "steps": ["Total students = 30", "Girls = 18", "Boys = 30 - 18 = 12"]
+  },
+  {
+    "id": 36,
+    "input": "What is 15% of 200?",
+    "expected": "30",
+    "category": "math",
+    "subcategory": "percentages",
+    "steps": ["15% = 0.15", "0.15 * 200 = 30"]
+  },
+  {
+    "id": 37,
+    "input": "A box contains 144 crayons arranged in 12 equal rows. How many crayons are in each row?",
+    "expected": "12",
+    "category": "math",
+    "subcategory": "division",
+    "steps": ["Total crayons = 144", "Number of rows = 12", "Crayons per row = 144/12 = 12"]
+  },
+  {
+    "id": 38,
+    "input": "If you buy 3 items for $25 each, what is the total cost?",
+    "expected": "75",
+    "category": "math",
+    "subcategory": "multiplication",
+    "steps": ["Number of items = 3", "Cost per item = $25", "Total cost = 3 * 25 = $75"]
+  },
+  {
+    "id": 39,
+    "input": "A rope is 48 feet long. If it's cut into 6 equal pieces, how long is each piece?",
+    "expected": "8",
+    "category": "math",
+    "subcategory": "division",
+    "steps": ["Total length = 48 feet", "Number of pieces = 6", "Length per piece = 48/6 = 8 feet"]
+  },
+  {
+    "id": 40,
+    "input": "Sarah is 8 years old. Her mother is 4 times her age. How old is Sarah's mother?",
+    "expected": "32",
+    "category": "math",
+    "subcategory": "multiplication",
+    "steps": ["Sarah's age = 8", "Mother's age = 4 * 8 = 32"]
+  },
+  {
+    "id": 41,
+    "input": "A parking lot has 8 rows with 15 spaces in each row. How many parking spaces are there in total?",
+    "expected": "120",
+    "category": "math",
+    "subcategory": "multiplication",
+    "steps": ["Rows = 8", "Spaces per row = 15", "Total spaces = 8 * 15 = 120"]
+  },
+  {
+    "id": 42,
+    "input": "If a bicycle costs $180 and is on sale for 25% off, what is the sale price?",
+    "expected": "135",
+    "category": "math",
+    "subcategory": "percentages",
+    "steps": ["Discount = 25% of 180 = 0.25 * 180 = $45", "Sale price = 180 - 45 = $135"]
+  },
+  {
+    "id": 43,
+    "input": "A container holds 5 liters of water. How many 250ml glasses can be filled from it?",
+    "expected": "20",
+    "category": "math",
+    "subcategory": "division",
+    "steps": ["Total water = 5 liters = 5000 ml", "Glass size = 250 ml", "Number of glasses = 5000/250 = 20"]
+  },
+  {
+    "id": 44,
+    "input": "If 4 friends split a bill of $68 equally, how much does each friend pay?",
+    "expected": "17",
+    "category": "math",
+    "subcategory": "division",
+    "steps": ["Total bill = $68", "Number of friends = 4", "Each pays = 68/4 = $17"]
+  },
+  {
+    "id": 45,
+    "input": "A train travels 240 miles in 4 hours. What is its average speed?",
+    "expected": "60",
+    "category": "math",
+    "subcategory": "rates",
+    "steps": ["Distance = 240 miles", "Time = 4 hours", "Speed = 240/4 = 60 mph"]
+  },
+  {
+    "id": 46,
+    "input": "If 7 pencils cost $3.50, what is the cost of 10 pencils?",
+    "expected": "5.00",
+    "category": "math",
+    "subcategory": "proportions",
+    "steps": ["Cost per pencil = 3.50/7 = $0.50", "Cost of 10 = 10 * 0.50 = $5.00"]
+  },
+  {
+    "id": 47,
+    "input": "A rectangle is 9 cm long and 6 cm wide. What is its perimeter?",
+    "expected": "30",
+    "category": "math",
+    "subcategory": "geometry",
+    "steps": ["Perimeter = 2 * (length + width)", "Perimeter = 2 * (9 + 6) = 2 * 15 = 30 cm"]
+  },
+  {
+    "id": 48,
+    "input": "If you work 6 hours and earn $90, what is your hourly wage?",
+    "expected": "15",
+    "category": "math",
+    "subcategory": "division",
+    "steps": ["Total earnings = $90", "Hours worked = 6", "Hourly wage = 90/6 = $15"]
+  },
+  {
+    "id": 49,
+    "input": "A bag of rice weighs 25 kg. If you use 3 kg per week, how many weeks will the bag last?",
+    "expected": "8",
+    "category": "math",
+    "subcategory": "division",
+    "steps": ["Total rice = 25 kg", "Usage per week = 3 kg", "Weeks = 25/3 = 8.33, approximately 8 full weeks"]
+  },
+  {
+    "id": 50,
+    "input": "If a square has a perimeter of 36 cm, what is the length of one side?",
+    "expected": "9",
+    "category": "math",
+    "subcategory": "geometry",
+    "steps": ["Square has 4 equal sides", "Perimeter = 4 * side", "side = 36/4 = 9 cm"]
+  },
+  {
+    "id": 51,
+    "input": "A store sells 150 items in 5 days. What is the average number of items sold per day?",
+    "expected": "30",
+    "category": "math",
+    "subcategory": "averages",
+    "steps": ["Total items = 150", "Days = 5", "Average = 150/5 = 30 items per day"]
+  },
+  {
+    "id": 52,
+    "input": "If 60% of students in a class of 25 passed an exam, how many students passed?",
+    "expected": "15",
+    "category": "math",
+    "subcategory": "percentages",
+    "steps": ["Total students = 25", "Passing rate = 60% = 0.6", "Students passed = 0.6 * 25 = 15"]
+  },
+  {
+    "id": 53,
+    "input": "A phone costs $400. If there's a $50 discount, what is the final price?",
+    "expected": "350",
+    "category": "math",
+    "subcategory": "subtraction",
+    "steps": ["Original price = $400", "Discount = $50", "Final price = 400 - 50 = $350"]
+  },
+  {
+    "id": 54,
+    "input": "If a clock shows 2:45 and you add 3 hours and 30 minutes, what time will it show?",
+    "expected": "6:15",
+    "category": "math",
+    "subcategory": "time",
+    "steps": ["Start = 2:45", "Add 3 hours = 5:45", "Add 30 minutes = 6:15"]
+  },
+  {
+    "id": 55,
+    "input": "A library has 1200 books. If 1/4 of them are fiction, how many fiction books are there?",
+    "expected": "300",
+    "category": "math",
+    "subcategory": "fractions",
+    "steps": ["Total books = 1200", "Fiction = 1/4 of 1200", "Fiction = 1200/4 = 300"]
+  },
+  {
+    "id": 56,
+    "input": "If 2 notebooks cost $8 and 3 pens cost $6, what is the total cost of 2 notebooks and 3 pens?",
+    "expected": "14",
+    "category": "math",
+    "subcategory": "addition",
+    "steps": ["Notebooks = $8", "Pens = $6", "Total = 8 + 6 = $14"]
+  },
+  {
+    "id": 57,
+    "input": "A tree grows 6 inches per year. How much will it grow in 8 years?",
+    "expected": "48",
+    "category": "math",
+    "subcategory": "multiplication",
+    "steps": ["Growth per year = 6 inches", "Years = 8", "Total growth = 6 * 8 = 48 inches"]
+  },
+  {
+    "id": 58,
+    "input": "If a pizza has 12 slices and you eat 1/3 of it, how many slices did you eat?",
+    "expected": "4",
+    "category": "math",
+    "subcategory": "fractions",
+    "steps": ["Total slices = 12", "Fraction eaten = 1/3", "Slices eaten = 12 * 1/3 = 4"]
+  },
+  {
+    "id": 59,
+    "input": "A box contains 96 chocolates arranged in 8 rows. How many chocolates are in each row?",
+    "expected": "12",
+    "category": "math",
+    "subcategory": "division",
+    "steps": ["Total chocolates = 96", "Rows = 8", "Chocolates per row = 96/8 = 12"]
+  },
+  {
+    "id": 60,
+    "input": "If you run 3 miles every day for a week, how many miles do you run in total?",
+    "expected": "21",
+    "category": "math",
+    "subcategory": "multiplication",
+    "steps": ["Miles per day = 3", "Days in week = 7", "Total miles = 3 * 7 = 21"]
+  }
+]

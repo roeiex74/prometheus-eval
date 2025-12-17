@@ -1,0 +1,422 @@
+[
+  {
+    "id": 1,
+    "input": "This movie was absolutely amazing! The acting was superb and the plot kept me engaged throughout.",
+    "expected": "positive",
+    "category": "sentiment",
+    "subcategory": "movies"
+  },
+  {
+    "id": 2,
+    "input": "I hated every minute of this film. The pacing was terrible and the characters were unlikeable.",
+    "expected": "negative",
+    "category": "sentiment",
+    "subcategory": "movies"
+  },
+  {
+    "id": 3,
+    "input": "The movie was okay. Nothing special but not terrible either.",
+    "expected": "neutral",
+    "category": "sentiment",
+    "subcategory": "movies"
+  },
+  {
+    "id": 4,
+    "input": "Best purchase I've ever made! This product exceeded all my expectations.",
+    "expected": "positive",
+    "category": "sentiment",
+    "subcategory": "products"
+  },
+  {
+    "id": 5,
+    "input": "Complete waste of money. The product broke after two days.",
+    "expected": "negative",
+    "category": "sentiment",
+    "subcategory": "products"
+  },
+  {
+    "id": 6,
+    "input": "The product works as described. No complaints, no praises.",
+    "expected": "neutral",
+    "category": "sentiment",
+    "subcategory": "products"
+  },
+  {
+    "id": 7,
+    "input": "I'm thrilled with the service I received! The staff was incredibly helpful and friendly.",
+    "expected": "positive",
+    "category": "sentiment",
+    "subcategory": "service"
+  },
+  {
+    "id": 8,
+    "input": "Worst customer service experience ever. They were rude and unhelpful.",
+    "expected": "negative",
+    "category": "sentiment",
+    "subcategory": "service"
+  },
+  {
+    "id": 9,
+    "input": "The service was adequate. They did what was needed.",
+    "expected": "neutral",
+    "category": "sentiment",
+    "subcategory": "service"
+  },
+  {
+    "id": 10,
+    "input": "Absolutely delicious! This restaurant serves the best Italian food in town.",
+    "expected": "positive",
+    "category": "sentiment",
+    "subcategory": "food"
+  },
+  {
+    "id": 11,
+    "input": "The food was cold and tasteless. I will never come back here.",
+    "expected": "negative",
+    "category": "sentiment",
+    "subcategory": "food"
+  },
+  {
+    "id": 12,
+    "input": "The food was edible. Nothing memorable about the experience.",
+    "expected": "neutral",
+    "category": "sentiment",
+    "subcategory": "food"
+  },
+  {
+    "id": 13,
+    "input": "I love this book! The author's writing style is captivating and the story is beautifully crafted.",
+    "expected": "positive",
+    "category": "sentiment",
+    "subcategory": "books"
+  },
+  {
+    "id": 14,
+    "input": "This book was boring and poorly written. I couldn't finish it.",
+    "expected": "negative",
+    "category": "sentiment",
+    "subcategory": "books"
+  },
+  {
+    "id": 15,
+    "input": "The book was a standard mystery novel. Nothing groundbreaking.",
+    "expected": "neutral",
+    "category": "sentiment",
+    "subcategory": "books"
+  },
+  {
+    "id": 16,
+    "input": "Outstanding performance! The concert was unforgettable.",
+    "expected": "positive",
+    "category": "sentiment",
+    "subcategory": "events"
+  },
+  {
+    "id": 17,
+    "input": "What a disappointment. The sound quality was terrible and the venue was uncomfortable.",
+    "expected": "negative",
+    "category": "sentiment",
+    "subcategory": "events"
+  },
+  {
+    "id": 18,
+    "input": "The event happened as scheduled. It was what I expected.",
+    "expected": "neutral",
+    "category": "sentiment",
+    "subcategory": "events"
+  },
+  {
+    "id": 19,
+    "input": "This app is fantastic! So intuitive and feature-rich.",
+    "expected": "positive",
+    "category": "sentiment",
+    "subcategory": "technology"
+  },
+  {
+    "id": 20,
+    "input": "The app crashes constantly and is full of bugs. Completely unusable.",
+    "expected": "negative",
+    "category": "sentiment",
+    "subcategory": "technology"
+  },
+  {
+    "id": 21,
+    "input": "The app functions as described. Does the basic job.",
+    "expected": "neutral",
+    "category": "sentiment",
+    "subcategory": "technology"
+  },
+  {
+    "id": 22,
+    "input": "I'm so grateful for this opportunity! It's a dream come true.",
+    "expected": "positive",
+    "category": "sentiment",
+    "subcategory": "personal"
+  },
+  {
+    "id": 23,
+    "input": "I'm devastated by this news. This is the worst day of my life.",
+    "expected": "negative",
+    "category": "sentiment",
+    "subcategory": "personal"
+  },
+  {
+    "id": 24,
+    "input": "Today was an ordinary day. Nothing particularly good or bad happened.",
+    "expected": "neutral",
+    "category": "sentiment",
+    "subcategory": "personal"
+  },
+  {
+    "id": 25,
+    "input": "The hotel room was spectacular! Clean, spacious, and with a beautiful view.",
+    "expected": "positive",
+    "category": "sentiment",
+    "subcategory": "travel"
+  },
+  {
+    "id": 26,
+    "input": "The hotel was dirty and noisy. I couldn't sleep at all.",
+    "expected": "negative",
+    "category": "sentiment",
+    "subcategory": "travel"
+  },
+  {
+    "id": 27,
+    "input": "The hotel met basic standards. Clean bed and working shower.",
+    "expected": "neutral",
+    "category": "sentiment",
+    "subcategory": "travel"
+  },
+  {
+    "id": 28,
+    "input": "Brilliant idea! This could revolutionize the industry.",
+    "expected": "positive",
+    "category": "sentiment",
+    "subcategory": "business"
+  },
+  {
+    "id": 29,
+    "input": "This proposal is terrible and shows complete lack of understanding.",
+    "expected": "negative",
+    "category": "sentiment",
+    "subcategory": "business"
+  },
+  {
+    "id": 30,
+    "input": "The proposal presents a standard approach. Nothing innovative.",
+    "expected": "neutral",
+    "category": "sentiment",
+    "subcategory": "business"
+  },
+  {
+    "id": 31,
+    "input": "Phenomenal achievement! You should be incredibly proud of yourself.",
+    "expected": "positive",
+    "category": "sentiment",
+    "subcategory": "achievement"
+  },
+  {
+    "id": 32,
+    "input": "Total failure. Everything went wrong and I'm extremely disappointed.",
+    "expected": "negative",
+    "category": "sentiment",
+    "subcategory": "achievement"
+  },
+  {
+    "id": 33,
+    "input": "The project was completed. It met the minimum requirements.",
+    "expected": "neutral",
+    "category": "sentiment",
+    "subcategory": "achievement"
+  },
+  {
+    "id": 34,
+    "input": "The weather is gorgeous today! Perfect for a picnic.",
+    "expected": "positive",
+    "category": "sentiment",
+    "subcategory": "weather"
+  },
+  {
+    "id": 35,
+    "input": "This weather is awful. It's been raining for days and I'm sick of it.",
+    "expected": "negative",
+    "category": "sentiment",
+    "subcategory": "weather"
+  },
+  {
+    "id": 36,
+    "input": "The weather is cloudy today. Typical for this time of year.",
+    "expected": "neutral",
+    "category": "sentiment",
+    "subcategory": "weather"
+  },
+  {
+    "id": 37,
+    "input": "Excellent work! The quality exceeded our expectations.",
+    "expected": "positive",
+    "category": "sentiment",
+    "subcategory": "work"
+  },
+  {
+    "id": 38,
+    "input": "Sloppy work with many errors. This is unacceptable.",
+    "expected": "negative",
+    "category": "sentiment",
+    "subcategory": "work"
+  },
+  {
+    "id": 39,
+    "input": "The work was completed on time. It meets specifications.",
+    "expected": "neutral",
+    "category": "sentiment",
+    "subcategory": "work"
+  },
+  {
+    "id": 40,
+    "input": "This game is addictive and so much fun! I can't stop playing.",
+    "expected": "positive",
+    "category": "sentiment",
+    "subcategory": "games"
+  },
+  {
+    "id": 41,
+    "input": "Boring and repetitive. This game is a waste of time.",
+    "expected": "negative",
+    "category": "sentiment",
+    "subcategory": "games"
+  },
+  {
+    "id": 42,
+    "input": "The game is a standard platformer. Nothing special about it.",
+    "expected": "neutral",
+    "category": "sentiment",
+    "subcategory": "games"
+  },
+  {
+    "id": 43,
+    "input": "The class was enlightening! I learned so much from this professor.",
+    "expected": "positive",
+    "category": "sentiment",
+    "subcategory": "education"
+  },
+  {
+    "id": 44,
+    "input": "Terrible lecture. The professor was disorganized and unclear.",
+    "expected": "negative",
+    "category": "sentiment",
+    "subcategory": "education"
+  },
+  {
+    "id": 45,
+    "input": "The class covered the syllabus. It was what I expected.",
+    "expected": "neutral",
+    "category": "sentiment",
+    "subcategory": "education"
+  },
+  {
+    "id": 46,
+    "input": "Wonderful news! I'm so happy I could cry.",
+    "expected": "positive",
+    "category": "sentiment",
+    "subcategory": "personal"
+  },
+  {
+    "id": 47,
+    "input": "Heartbreaking situation. I'm deeply saddened by this.",
+    "expected": "negative",
+    "category": "sentiment",
+    "subcategory": "personal"
+  },
+  {
+    "id": 48,
+    "input": "I received the information. It was as expected.",
+    "expected": "neutral",
+    "category": "sentiment",
+    "subcategory": "personal"
+  },
+  {
+    "id": 49,
+    "input": "Incredible experience! This exceeded all my wildest dreams.",
+    "expected": "positive",
+    "category": "sentiment",
+    "subcategory": "experience"
+  },
+  {
+    "id": 50,
+    "input": "Horrible experience. I regret everything about this.",
+    "expected": "negative",
+    "category": "sentiment",
+    "subcategory": "experience"
+  },
+  {
+    "id": 51,
+    "input": "The experience was unremarkable. Nothing stood out.",
+    "expected": "neutral",
+    "category": "sentiment",
+    "subcategory": "experience"
+  },
+  {
+    "id": 52,
+    "input": "Love love love this product! Worth every penny.",
+    "expected": "positive",
+    "category": "sentiment",
+    "subcategory": "products"
+  },
+  {
+    "id": 53,
+    "input": "Absolutely hate it. This is the worst purchase I've made.",
+    "expected": "negative",
+    "category": "sentiment",
+    "subcategory": "products"
+  },
+  {
+    "id": 54,
+    "input": "The product serves its purpose. It's functional.",
+    "expected": "neutral",
+    "category": "sentiment",
+    "subcategory": "products"
+  },
+  {
+    "id": 55,
+    "input": "Magnificent presentation! Truly inspiring work.",
+    "expected": "positive",
+    "category": "sentiment",
+    "subcategory": "work"
+  },
+  {
+    "id": 56,
+    "input": "Awful presentation. Poorly prepared and confusing.",
+    "expected": "negative",
+    "category": "sentiment",
+    "subcategory": "work"
+  },
+  {
+    "id": 57,
+    "input": "The presentation covered the required topics. Standard delivery.",
+    "expected": "neutral",
+    "category": "sentiment",
+    "subcategory": "work"
+  },
+  {
+    "id": 58,
+    "input": "This is the best decision I've ever made! So grateful.",
+    "expected": "positive",
+    "category": "sentiment",
+    "subcategory": "personal"
+  },
+  {
+    "id": 59,
+    "input": "Worst decision ever. I should have known better.",
+    "expected": "negative",
+    "category": "sentiment",
+    "subcategory": "personal"
+  },
+  {
+    "id": 60,
+    "input": "The decision was made based on available information.",
+    "expected": "neutral",
+    "category": "sentiment",
+    "subcategory": "personal"
+  }
+]
