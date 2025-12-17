@@ -1207,7 +1207,7 @@ def main():
     add_page_break(doc)
 
     # Save document
-    output_path = '/Users/liorlivyatan/Desktop/Livyatan/MSc CS/LLM Course/HW6/HW6_Submission_Lior_Livyatan.docx'
+    output_path = '/Users/liorlivyatan/Desktop/Livyatan/MSc CS/LLM Course/HW6/HW6_asiroli2025_prompt_engineering.docx'
     doc.save(output_path)
 
     print(f"\n✅ Document created successfully: {output_path}")

@@ -972,7 +972,7 @@ find results -name "*.png" -exec open {} \;
 | `VISUALIZATION_INDEX.md` | Complete visualization catalog | Full index |
 | `COMPLETION_SUMMARY.md` | Project completion report | Detailed |
 | `README.md` | Main documentation (this file) | 953 lines |
-| `HW6_Submission_Lior_Livyatan.docx` | Final submission document | ~30 pages |
+| `HW6_asiroli2025_prompt_engineering.docx` | Final submission document | ~30 pages |
 
 ### 🚀 Quick Commands
 
