@@ -171,9 +171,12 @@ class AccuracyEvaluator:
         Returns:
             True if strings are sufficiently similar
         """
+        if pred.lower().startswith("error:") and not truth.lower().startswith("error:"):
+            return False
+
         # Simple fuzzy matching: check if prediction contains ground truth
-        # or ground truth contains prediction
-        if truth in pred or pred in truth:
+        # or ground truth contains prediction (only for sufficiently long strings and non-empty pred)
+        if pred and len(truth) > 3 and (truth in pred or pred in truth):
             return True
 
         # Calculate simple character overlap ratio

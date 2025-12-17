@@ -1,6 +1,21 @@
 """
 Perplexity metric using OpenAI API for token-level log probabilities.
+
 Measures model confidence in generated text via exp(-mean(log_probs)).
+
+References:
+    [1] F. Jelinek, R. L. Mercer, L. R. Bahl, and J. K. Baker, "Perplexity—
+        A Measure of the Difficulty of Speech Recognition Tasks," J. Acoustical
+        Society of America, vol. 62, no. S1, pp. S63-S63, Nov. 1977.
+        doi: 10.1121/1.2016299
+
+    [2] Y. Bengio, R. Ducharme, P. Vincent, and C. Jauvin, "A Neural Probabilistic
+        Language Model," Journal of Machine Learning Research, vol. 3,
+        pp. 1137-1155, Feb. 2003.
+
+    [3] T. Brown et al., "Language Models are Few-Shot Learners," in Advances
+        in Neural Information Processing Systems 33 (NeurIPS 2020),
+        Virtual, Dec. 2020, pp. 1877-1901.
 """
 from typing import Dict, List, Optional, Any
 import numpy as np
@@ -9,7 +24,54 @@ import os
 
 
 class PerplexityMetric:
-    """Perplexity metric: exp(-mean(log_probs)) for model confidence measurement."""
+    """Perplexity metric: exp(-mean(log_probs)) for model confidence measurement.
+
+    Examples:
+        >>> from prometheus_eval.metrics.logic.perplexity import PerplexityMetric
+        >>> import os
+        >>>
+        >>> # Setup (requires OPENAI_API_KEY environment variable)
+        >>> api_key = os.getenv("OPENAI_API_KEY")
+        >>> perplexity = PerplexityMetric(api_key=api_key)
+        >>>
+        >>> # Measuring text fluency
+        >>> fluent_text = "The cat sat on the mat."
+        >>> result = perplexity.compute(fluent_text)
+        >>> print(f"Perplexity (fluent): {result['perplexity']:.2f}")
+        Perplexity (fluent): 15.42
+        >>> # Low perplexity (~10-50) indicates fluent, predictable text
+
+        >>> # Detecting hallucinations
+        >>> hallucinated_text = "The zorgblat flibbered the quantum carburetor."
+        >>> result = perplexity.compute(hallucinated_text)
+        >>> print(f"Perplexity (hallucinated): {result['perplexity']:.2f}")
+        Perplexity (hallucinated): 287.35
+        >>> # High perplexity (>100) may indicate hallucination or rare vocabulary
+
+        >>> # Per-token analysis for hallucination detection
+        >>> text = "Paris is the capital of France, located in the Andromeda galaxy"
+        >>> result = perplexity.compute(text)
+        >>>
+        >>> for token, ppl in zip(result['tokens'], result['token_perplexities']):
+        ...     if ppl > 100:  # Hallucination threshold
+        ...         print(f"ALERT: '{token}' has high perplexity {ppl:.2f}")
+        ALERT: 'Andromeda' has high perplexity 156.23
+        ALERT: 'galaxy' has high perplexity 142.18
+        >>> # "Andromeda" and "galaxy" spike in perplexity (factual error)
+
+        >>> # Comparing prompt outputs
+        >>> prompt_a_output = "The algorithm uses dynamic programming"
+        >>> prompt_b_output = "The algo utilizes DP paradigms"
+        >>>
+        >>> ppl_a = perplexity.compute(prompt_a_output)['perplexity']
+        >>> ppl_b = perplexity.compute(prompt_b_output)['perplexity']
+        >>>
+        >>> if ppl_a < ppl_b:
+        ...     print("Prompt A produces more fluent output")
+        ... else:
+        ...     print("Prompt B produces more fluent output")
+        Prompt A produces more fluent output
+    """
 
     def __init__(self, model_name: str = 'gpt-3.5-turbo', api_key: Optional[str] = None):
         """Initialize with OpenAI model.

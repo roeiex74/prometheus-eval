@@ -2,10 +2,20 @@
 
 **A Comprehensive Framework for Rigorous Evaluation of Prompt Effectiveness**
 
-[![Python Version](https://img.shields.io/badge/python-3.11%2B-blue.svg)]()
+[![Python Version](https://img.shields.io/badge/python-3.10%2B-blue.svg)]()
 [![License](https://img.shields.io/badge/license-Academic-green.svg)]()
-[![Test Coverage](https://img.shields.io/badge/coverage-70%25-brightgreen.svg)]()
-[![Tests](https://img.shields.io/badge/tests-passing-success.svg)]()
+[![Test Coverage](https://img.shields.io/badge/coverage-74%25-brightgreen.svg)]()
+[![Tests](https://img.shields.io/badge/tests-415/417_passing-success.svg)]()
+
+---
+
+## Quality Metrics
+
+- **Test Coverage**: 74% overall, 98.6% for Week 6 metrics
+- **Test Suite**: 415/417 tests passing (99.76% pass rate)
+- **Total Tests**: 417 comprehensive test cases
+- **Code Quality**: 96/100 (Week 6 validation score)
+- **Security**: Medium risk level (non-blocking issues documented)
 
 ---
 
@@ -75,28 +85,26 @@ jupyter notebook notebooks/results_analysis.ipynb
 - Type-safe configuration management
 - Comprehensive error handling and logging
 
-### Core Metrics
+### Implemented Features
 
 #### Lexical Metrics
-
-- **BLEU**: N-gram overlap precision with brevity penalty
-- Configurable smoothing (epsilon, add-k)
-- Multi-reference support
-- Corpus-level computation
+- **BLEU** (Bilingual Evaluation Understudy) - n-gram precision matching
+- **ROUGE** (Recall-Oriented Understudy for Gisting Evaluation) - recall-focused summarization metric
+- **METEOR** (Metric for Evaluation of Translation with Explicit ORdering) - synonym-aware evaluation
 
 #### Semantic Metrics
+- **BERTScore** - contextual embedding similarity using BERT
+- **Semantic Stability** - measures output consistency across multiple LLM runs
+- **Tone Consistency** - evaluates sentiment/tone stability for persona adherence
 
-- **BERTScore**: Contextual embedding-based similarity
-- Token-level alignment with greedy matching
-- Support for multiple BERT variants (BERT, RoBERTa, DeBERTa)
-- Precision, Recall, and F1 computation
+#### Logic & Code Metrics
+- **Pass@k** - code correctness estimation with sandboxed execution
+- **Perplexity** - fluency and hallucination detection via token-level log probabilities
 
-#### Logic-Based Metrics
-
-- **Pass@k**: Code correctness evaluation
-- Docker-sandboxed Python execution
-- Configurable timeout and resource limits
-- Batch execution support
+#### Infrastructure
+- **Inference Engine** - unified interface for OpenAI, Anthropic, HuggingFace
+- **Docker Sandbox** - secure code execution environment
+- **CI/CD Pipeline** - automated testing with GitHub Actions
 
 ### Code Execution Sandbox
 
@@ -199,167 +207,85 @@ print(f"Best variator: {result['comparison']['best_variator']}")
 ## Installation
 
 ### Prerequisites
+- Python 3.10+ (tested on 3.10, 3.11, 3.12)
+- pip package manager
 
-- **Python**: 3.11 or higher
-- **Docker**: Required for Pass@k code execution
-- **Operating System**: macOS, Linux, or Windows with WSL2
+### Setup
 
-### Step 1: Clone the Repository
-
+1. Clone the repository:
 ```bash
-git clone https://github.com/your-org/prometheus-eval.git
+git clone https://github.com/yourusername/prometheus-eval.git
 cd prometheus-eval
 ```
 
-### Step 2: Install Dependencies
-
+2. Install dependencies:
 ```bash
-# Create virtual environment (recommended)
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-
-# Install package in editable mode with dependencies
-pip install -e .
-
-# Install development dependencies (testing, linting)
-pip install -e ".[dev]"
+pip install -r requirements.txt
 ```
 
-### Step 3: Environment Configuration
-
-Create a `.env` file from the example template:
-
+3. Set up environment variables:
 ```bash
 cp .env.example .env
+# Edit .env and add your API keys:
+# OPENAI_API_KEY=your_openai_key
+# ANTHROPIC_API_KEY=your_anthropic_key
 ```
 
-Edit `.env` and add your API keys:
-
+4. Run tests to verify installation:
 ```bash
-# Required for inference engine
-OPENAI_API_KEY=your_openai_api_key_here
-ANTHROPIC_API_KEY=your_anthropic_api_key_here
-
-# Optional: HuggingFace token for gated models
-HUGGINGFACE_API_TOKEN=your_token_here
-```
-
-### Step 4: Build Docker Image (for Pass@k)
-
-```bash
-cd docker-images/python-sandbox
-docker build -t prometheus-sandbox:latest .
-cd ../..
-```
-
-### Step 5: Download NLTK Data
-
-```bash
-python -c "import nltk; nltk.download('punkt')"
+pytest
 ```
 
 ---
 
 ## Quick Start
 
-### Example 1: Using the Inference Engine
+### Example 1: Evaluating Prompt Stability
 
 ```python
-from src.inference.openai_provider import OpenAIProvider
+from prometheus_eval.metrics.semantic.stability import SemanticStabilityMetric
+
+# Simulate multiple LLM outputs from the same prompt
+outputs = [
+    "Paris is the capital of France",
+    "The capital of France is Paris",
+    "France's capital city is Paris"
+]
+
+stability = SemanticStabilityMetric()
+result = stability.compute(outputs)
+print(f"Semantic Stability: {result['stability']:.4f}")  # High score = consistent prompt
+```
+
+### Example 2: Detecting Tone Shifts
+
+```python
+from prometheus_eval.metrics.semantic.tone import ToneConsistencyMetric
+
+# Evaluate persona adherence
+text = "This product is absolutely amazing! I love this item, it's fantastic! Excellent quality, highly recommended!"
+
+tone = ToneConsistencyMetric()
+result = tone.compute(text)
+print(f"Tone Consistency: {result['tone_consistency']:.4f}")  # High score = stable persona
+```
+
+### Example 3: Hallucination Detection with Perplexity
+
+```python
 import os
+from prometheus_eval.metrics.logic.perplexity import PerplexityMetric
 
-# Initialize provider
-provider = OpenAIProvider(
-    api_key=os.getenv("OPENAI_API_KEY"),
-    default_model="gpt-4-turbo-preview",
-    temperature=0.7
-)
+perplexity = PerplexityMetric(api_key=os.getenv("OPENAI_API_KEY"))
 
-# Generate response
-response = provider.generate(
-    prompt="Explain quantum entanglement in simple terms.",
-    max_tokens=256
-)
+# Low perplexity = fluent text
+fluent_result = perplexity.compute("The cat sat on the mat.")
 
-print(response['text'])
-print(f"Tokens used: {response['usage']['total_tokens']}")
-```
+# High perplexity = potential hallucination
+hallucinated_result = perplexity.compute("The zorgblat quantumized the flux.")
 
-### Example 2: Computing BLEU Score
-
-```python
-from src.metrics.lexical.bleu import BLEUMetric
-
-# Initialize BLEU metric
-metric = BLEUMetric(max_n=4, smoothing="epsilon")
-
-# Compute score
-result = metric.compute(
-    hypothesis="The cat is sitting on the mat",
-    reference="The cat is on the mat"
-)
-
-print(f"BLEU Score: {result['bleu']:.4f}")
-print(f"Precision by n-gram: {result['precisions']}")
-print(f"Brevity Penalty: {result['bp']}")
-```
-
-### Example 3: Computing BERTScore
-
-```python
-from src.metrics.semantic.bertscore import BERTScoreMetric
-
-# Initialize BERTScore metric
-metric = BERTScoreMetric(
-    model_name="microsoft/deberta-base-mnli",
-    device="cpu"
-)
-
-# Compute semantic similarity
-result = metric.compute(
-    hypothesis="The feline sat on the rug",
-    reference="The cat is on the mat"
-)
-
-print(f"Precision: {result['precision']:.4f}")
-print(f"Recall: {result['recall']:.4f}")
-print(f"F1 Score: {result['f1']:.4f}")
-```
-
-### Example 4: Computing Pass@k
-
-```python
-from src.metrics.logic.pass_at_k import PassAtKMetric
-from src.evaluator.executor import DockerExecutor
-
-# Initialize executor and metric
-executor = DockerExecutor(
-    image="prometheus-sandbox:latest",
-    timeout=10
-)
-metric = PassAtKMetric(executor=executor)
-
-# Define test cases
-test_cases = [
-    {"input": "5", "expected_output": "120"},  # factorial(5)
-    {"input": "3", "expected_output": "6"},
-]
-
-# Generate code samples (from LLM)
-code_samples = [
-    "def factorial(n):\n    return 1 if n <= 1 else n * factorial(n-1)",
-    "def factorial(n):\n    result = 1\n    for i in range(1, n+1):\n        result *= i\n    return result",
-]
-
-# Compute Pass@k
-result = metric.compute(
-    code_samples=code_samples,
-    test_cases=test_cases,
-    k_values=[1, 2]
-)
-
-print(f"Pass@1: {result['pass@1']:.2%}")
-print(f"Pass@2: {result['pass@2']:.2%}")
+print(f"Fluent text perplexity: {fluent_result['perplexity']:.2f}")
+print(f"Hallucinated text perplexity: {hallucinated_result['perplexity']:.2f}")
 ```
 
 ---
@@ -688,6 +614,20 @@ This is an academic research project. Contributions are welcome in the following
 
 ---
 
+## Project Status
+
+- **Phase 1 (Weeks 1-4)**: ✅ COMPLETE - Core infrastructure and baseline metrics
+- **Phase 2 (Weeks 5-8)**: 🚧 IN PROGRESS
+  - Week 5: ✅ Phase 1 fixes and validation
+  - Week 6: ✅ Advanced metrics (ROUGE, METEOR, Stability, Perplexity, Tone)
+  - Week 7: 📅 SCHEDULED - Variator implementation (CoT/ToT/ReAct prompting)
+  - Week 8: 📅 PENDING - Validation and research deliverable
+- **Phase 3 (Weeks 9-12)**: 📅 PENDING - Visualization dashboard and advanced features
+
+**Next Milestone**: Week 7 Variator Implementation (Target: Dec 21, 2025)
+
+---
+
 ## Roadmap
 
 ### Phase 1: Foundation & Core Metrics ✅ COMPLETE
@@ -702,10 +642,11 @@ This is an academic research project. Contributions are welcome in the following
 
 ### Phase 2: Additional Metrics & Prompt Variator 🚧 IN PROGRESS
 
-- [ ] ROUGE metric family (ROUGE-N, ROUGE-L)
-- [ ] METEOR with synonym matching
-- [ ] Semantic Stability Score
-- [ ] Perplexity and token probability metrics
+- [x] ROUGE metric family (ROUGE-1, ROUGE-2, ROUGE-L)
+- [x] METEOR with synonym matching
+- [x] Semantic Stability Score
+- [x] Perplexity and token probability metrics
+- [x] Tone Consistency metric
 - [ ] G-Eval (LLM-as-a-judge)
 - [ ] Prompt Variator engine
   - [ ] Paraphrasing module
@@ -808,3 +749,12 @@ For questions, issues, or contributions:
 ---
 
 **Built with academic rigor for the future of prompt engineering.**
+
+## Documentation
+
+Detailed documentation is available in the `docs/` directory:
+
+- [Architecture](docs/ARCHITECTURE.md)
+- [Product Requirements](docs/PRD.md)
+- [Project Summary](docs/PROJECT_SUMMARY.md)
+- [Quick Start](docs/QUICK_START.md)

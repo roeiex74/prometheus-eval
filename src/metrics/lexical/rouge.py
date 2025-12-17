@@ -1,7 +1,18 @@
 """
 ROUGE (Recall-Oriented Understudy for Gisting Evaluation) Metric
+
 Formula: ROUGE-N = Σ match(n-gram)/Σ ref(n-gram); ROUGE-L via LCS; F=(1+β²)RP/(R+β²P)
-Reference: Lin (2004). "ROUGE: Package for Automatic Evaluation of Summaries"
+
+References:
+    [1] C.-Y. Lin, "ROUGE: A Package for Automatic Evaluation of Summaries,"
+        in Proc. Workshop on Text Summarization Branches Out, Barcelona, Spain,
+        Jul. 2004, pp. 74-81.
+
+    [2] C.-Y. Lin and E. Hovy, "Automatic Evaluation of Summaries Using N-gram
+        Co-Occurrence Statistics," in Proc. 2003 Conf. North American Chapter
+        of the Association for Computational Linguistics on Human Language
+        Technology, vol. 1, Edmonton, Canada, May-Jun. 2003, pp. 71-78.
+        doi: 10.3115/1073445.1073465
 """
 from typing import List, Dict, Union, Tuple
 import nltk
@@ -14,7 +25,45 @@ except LookupError:
 
 
 class ROUGEMetric:
-    """ROUGE metric with ROUGE-1, ROUGE-2, and ROUGE-L support."""
+    """ROUGE metric with ROUGE-1, ROUGE-2, and ROUGE-L support.
+
+    Examples:
+        >>> from prometheus_eval.metrics.lexical.rouge import ROUGEMetric
+        >>>
+        >>> # Basic summarization evaluation
+        >>> rouge = ROUGEMetric()
+        >>> reference = "The cat sat on the mat. The dog barked loudly."
+        >>> candidate = "A cat was sitting on a mat while a dog barked."
+        >>>
+        >>> scores = rouge.compute(candidate, reference)
+        >>> print(f"ROUGE-1: {scores['rouge1']:.4f}")
+        >>> print(f"ROUGE-2: {scores['rouge2']:.4f}")
+        >>> print(f"ROUGE-L: {scores['rougeL']:.4f}")
+        ROUGE-1: 0.6154
+        ROUGE-2: 0.2500
+        ROUGE-L: 0.5000
+
+        >>> # Multi-reference summarization
+        >>> references = [
+        ...     "The cat sat on the mat. The dog barked loudly.",
+        ...     "A cat rested on a mat. A dog made loud noises."
+        ... ]
+        >>> candidate = "Cat on mat, dog barking."
+        >>> scores = rouge.compute(candidate, references)
+        >>> print(f"Best ROUGE-1: {scores['rouge1']:.4f}")
+
+        >>> # Prompt evaluation: Compare outputs from different prompts
+        >>> reference = "Write Python code to sort a list"
+        >>> candidate_a = "Use sorted() function to sort lists in Python"
+        >>> candidate_b = "Python has sorted() for list sorting"
+        >>>
+        >>> rouge = ROUGEMetric(variants=['rouge1'])
+        >>> score_a = rouge.compute(candidate_a, reference)['rouge1']
+        >>> score_b = rouge.compute(candidate_b, reference)['rouge1']
+        >>> best_prompt = "A" if score_a > score_b else "B"
+        >>> print(f"Best prompt: {best_prompt}")
+        Best prompt: A
+    """
 
     def __init__(self, variants: List[str] = None, beta: float = 1.0):
         """Initialize ROUGE calculator (variants: rouge1/rouge2/rougeL, beta for F-measure)."""

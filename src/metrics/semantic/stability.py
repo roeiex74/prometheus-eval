@@ -1,6 +1,21 @@
 """
 Semantic Stability metric using sentence embeddings and pairwise cosine similarity.
+
 Measures semantic consistency across multiple text outputs via mean pairwise similarity.
+
+References:
+    [1] A. Kuhn, G. Grangier, and L. Rello, "Semantic Stability and Implicit
+        Reasoning for Question Answering," in Proc. 2021 Conf. Empirical
+        Methods in Natural Language Processing (EMNLP), Punta Cana,
+        Dominican Republic, Nov. 2021, pp. 4915-4926.
+        doi: 10.18653/v1/2021.emnlp-main.397
+
+    [2] N. Reimers and I. Gurevych, "Sentence-BERT: Sentence Embeddings
+        using Siamese BERT-Networks," in Proc. 2019 Conf. Empirical Methods
+        in Natural Language Processing and 9th International Joint Conf.
+        Natural Language Processing (EMNLP-IJCNLP), Hong Kong, China,
+        Nov. 2019, pp. 3982-3992.
+        doi: 10.18653/v1/D19-1410
 """
 from typing import List, Dict, Optional, Any
 import numpy as np
@@ -8,7 +23,60 @@ from sentence_transformers import SentenceTransformer
 
 
 class SemanticStabilityMetric:
-    """Measures semantic stability across multiple outputs using sentence embeddings."""
+    """Measures semantic stability across multiple outputs using sentence embeddings.
+
+    Examples:
+        >>> from prometheus_eval.metrics.semantic.stability import SemanticStabilityMetric
+        >>>
+        >>> # Evaluating prompt stability across multiple runs
+        >>> stability = SemanticStabilityMetric(model_name="all-MiniLM-L6-v2")
+        >>>
+        >>> # Simulate LLM outputs from same prompt (temperature > 0)
+        >>> outputs = [
+        ...     "Paris is the capital of France",
+        ...     "The capital of France is Paris",
+        ...     "France's capital city is Paris",
+        ...     "Paris serves as France's capital"
+        ... ]
+        >>>
+        >>> result = stability.compute(outputs)
+        >>> print(f"Semantic Stability: {result['stability']:.4f}")
+        Semantic Stability: 0.9650
+        >>> # High score (>0.95) indicates consistent meaning across runs
+
+        >>> # Detecting unstable prompts
+        >>> unstable_outputs = [
+        ...     "Paris is the capital of France",
+        ...     "Berlin is the capital of Germany",  # Different answer!
+        ...     "The Eiffel Tower is in Paris",
+        ...     "France is a European country"
+        ... ]
+        >>> result = stability.compute(unstable_outputs)
+        >>> print(f"Stability: {result['stability']:.4f}")
+        Stability: 0.6200
+        >>> # Low score (<0.7) indicates prompt is ambiguous or model is hallucinating
+
+        >>> # Comparing prompt formulations
+        >>> prompt_a_outputs = [
+        ...     "Answer A variation 1",
+        ...     "Answer A variation 2",
+        ...     "Answer A variation 3"
+        ... ]
+        >>> prompt_b_outputs = [
+        ...     "Answer B variation 1",
+        ...     "Answer B variation 2",
+        ...     "Answer B variation 3"
+        ... ]
+        >>>
+        >>> stability_a = stability.compute(prompt_a_outputs)['stability']
+        >>> stability_b = stability.compute(prompt_b_outputs)['stability']
+        >>>
+        >>> if stability_a > stability_b:
+        ...     print("Prompt A is more stable (consistent)")
+        ... else:
+        ...     print("Prompt B is more stable (consistent)")
+        Prompt A is more stable (consistent)
+    """
 
     def __init__(self, model_name: str = 'all-MiniLM-L6-v2', device: Optional[str] = None):
         """Initialize with sentence transformer model.

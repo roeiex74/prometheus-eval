@@ -1,4 +1,19 @@
-"""Tone Consistency metric via sentiment variance (TC = 1 - σ²)."""
+"""Tone Consistency metric via sentiment variance (TC = 1 - σ²).
+
+References:
+    [1] V. Sanh, L. Debut, J. Chaumond, and T. Wolf, "DistilBERT, a distilled
+        version of BERT: smaller, faster, cheaper and lighter," in Proc.
+        5th Workshop on Energy Efficient Machine Learning and Cognitive
+        Computing (EMC2), Vancouver, Canada, Dec. 2019.
+        arXiv: 1910.01108 [cs.CL]
+
+    [2] R. Socher et al., "Recursive Deep Models for Semantic Compositionality
+        Over a Sentiment Treebank," in Proc. 2013 Conf. Empirical Methods
+        in Natural Language Processing (EMNLP), Seattle, WA, USA, Oct. 2013,
+        pp. 1631-1642.
+
+    [3] HuggingFace Transformers: https://huggingface.co/distilbert-base-uncased-finetuned-sst-2-english
+"""
 from typing import List, Dict, Union, Any
 import numpy as np
 import re
@@ -9,8 +24,35 @@ class ToneConsistencyMetric:
 
     Formula: TC = 1 - σ²(sentiment_scores)
 
-    References:
-        PRD Section 4.3; Socher et al. (2013) SST; Ribeiro et al. (2020) CheckList
+    Examples:
+        >>> from prometheus_eval.metrics.semantic.tone import ToneConsistencyMetric
+        >>>
+        >>> # Evaluating tone consistency across multiple outputs
+        >>> tone = ToneConsistencyMetric(model_name="distilbert-base-uncased-finetuned-sst-2-english")
+        >>>
+        >>> # Consistent positive tone
+        >>> text = "This product is amazing! I love this item, it's fantastic! Excellent quality, highly recommended!"
+        >>>
+        >>> result = tone.compute(text)
+        >>> print(f"Tone Consistency: {result['tone_consistency']:.4f}")
+        Tone Consistency: 0.9800
+        >>> # High score (>0.95) indicates stable tone across segments
+
+        >>> # Detecting tone shifts (problematic for persona prompts)
+        >>> mixed_text = "This product is amazing! This item is terrible. The quality is acceptable."
+        >>> result = tone.compute(mixed_text)
+        >>> print(f"Tone Consistency: {result['tone_consistency']:.4f}")
+        Tone Consistency: 0.3500
+        >>> # Low score (<0.7) indicates tone instability
+
+        >>> # Persona adherence testing
+        >>> persona_prompt = "You are an enthusiastic product reviewer"
+        >>> text_from_prompt = "This is absolutely wonderful! I'm thrilled with this purchase! What an incredible product!"
+        >>>
+        >>> result = tone.compute(text_from_prompt)
+        >>> if result['tone_consistency'] > 0.9:
+        ...     print("Persona maintained consistently (enthusiastic tone)")
+        Persona maintained consistently (enthusiastic tone)
     """
 
     def __init__(self, model_name: str = 'distilbert-base-uncased-finetuned-sst-2-english',

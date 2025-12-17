@@ -45,7 +45,7 @@ class OpenAIProvider(AbstractLLMProvider):
     def __init__(
         self,
         api_key: str,
-        default_model: str = "gpt-4-turbo-preview",
+        default_model: str = "gpt-4o-mini",
         org_id: Optional[str] = None,
         temperature: float = 0.7,
         max_tokens: int = 2048,
@@ -205,43 +205,61 @@ class OpenAIProvider(AbstractLLMProvider):
 
         self._log_request(prompt, params["model"])
 
-        # Build request parameters
-        request_params = {
-            "model": params["model"],
-            "messages": [{"role": "user", "content": prompt}],
-            "temperature": params["temperature"],
-            "max_tokens": params["max_tokens"],
-        }
-
-        # Add optional parameters
-        if params.get("top_p") is not None:
-            request_params["top_p"] = params["top_p"]
-        if params.get("seed") is not None:
-            request_params["seed"] = params["seed"]
-
-        # Add any additional kwargs
-        for key, value in kwargs.items():
-            if key not in request_params:
-                request_params[key] = value
-
         try:
+            # Prepare request parameters
+            request_params = {
+                "model": params["model"],
+                "temperature": params["temperature"],
+                "max_tokens": params["max_tokens"],
+            }
+
+            # Add optional parameters
+            if params.get("top_p") is not None:
+                request_params["top_p"] = params["top_p"]
+            if params.get("seed") is not None:
+                request_params["seed"] = params["seed"]
+
+            # Add any additional kwargs
+            for key, value in kwargs.items():
+                if key not in request_params:
+                    request_params[key] = value
+
             # Make API request with retry logic
             retry_decorator = self.get_retry_decorator()
 
             @retry_decorator
             async def _make_request():
-                return await self._rate_limited_request(
-                    self.async_client.chat.completions.create,
-                    **request_params,
-                )
+                if params["model"] == "gpt-5-nano":
+                    # Special handling for gpt-5-nano
+                    # Only map supported parameters
+                    nano_params = {
+                        "model": params["model"],
+                        "input": prompt
+                    }
+                    
+                    return await self._rate_limited_request(
+                        self.async_client.responses.create,
+                        **nano_params,
+                    )
+                else:
+                    # Standard chat completion
+                    request_params["messages"] = [{"role": "user", "content": prompt}]
+                    return await self._rate_limited_request(
+                        self.async_client.chat.completions.create,
+                        **request_params,
+                    )
 
             response = await _make_request()
 
             # Extract generated text
-            generated_text = response.choices[0].message.content
+            if params["model"] == "gpt-5-nano":
+                generated_text = response.output_text
+                tokens_used = None 
+            else:
+                generated_text = response.choices[0].message.content
+                tokens_used = response.usage.total_tokens if response.usage else None
 
             # Log response
-            tokens_used = response.usage.total_tokens if response.usage else None
             self._log_response(generated_text, tokens_used)
 
             return generated_text
@@ -328,18 +346,30 @@ class OpenAIProvider(AbstractLLMProvider):
         logger.info(f"Generating batch of {len(prompts)} prompts")
 
         # Create tasks for all prompts
-        tasks = [
-            self._async_generate(
-                prompt=prompt,
-                model=model,
-                temperature=temperature,
-                max_tokens=max_tokens,
-                top_p=top_p,
-                seed=seed,
-                **kwargs,
-            )
-            for prompt in prompts
-        ]
+        if model == "gpt-5-nano":
+             tasks = [
+                self._rate_limited_request(
+                    self.async_client.responses.create,
+                    model=model,
+                    input=prompt,
+                    # No other params supported
+                )
+                for prompt in prompts
+            ]
+        else:
+            tasks = [
+                self._rate_limited_request(
+                    self.async_client.chat.completions.create,
+                    model=model,
+                    messages=[{"role": "user", "content": prompt}],
+                    temperature=temperature or self.default_temperature,
+                    max_tokens=max_tokens or self.default_max_tokens,
+                    top_p=top_p,
+                    seed=seed,
+                    **kwargs,
+                )
+                for prompt in prompts
+            ]
 
         # Execute all tasks concurrently
         results = await asyncio.gather(*tasks, return_exceptions=True)
@@ -350,8 +380,11 @@ class OpenAIProvider(AbstractLLMProvider):
             if isinstance(result, Exception):
                 logger.error(f"Batch item {i} failed: {result}")
                 raise result  # Re-raise first exception encountered
-            responses.append(result)
-
+            
+            if model == "gpt-5-nano":
+                responses.append(result.output_text)
+            else:
+                responses.append(result.choices[0].message.content)
         logger.info(f"Batch generation completed: {len(responses)} responses")
         return responses
 

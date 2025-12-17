@@ -17,7 +17,13 @@ Mathematical Foundation:
     - Similarity computed via cosine similarity (dot product of normalized vectors)
 
 References:
-    Zhang et al. (2020). "BERTScore: Evaluating Text Generation with BERT"
+    [1] T. Zhang, V. Kishore, F. Wu, K. Q. Weinberger, and Y. Artzi,
+        "BERTScore: Evaluating Text Generation with BERT," in Proc. 8th
+        International Conference on Learning Representations (ICLR),
+        Addis Ababa, Ethiopia, Apr. 2020.
+        arXiv: 1904.09675 [cs.CL]
+
+    [2] Official Implementation: https://github.com/Tiiiger/bert_score
 """
 
 import torch

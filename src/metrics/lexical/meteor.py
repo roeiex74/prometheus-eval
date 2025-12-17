@@ -1,7 +1,19 @@
 """
 METEOR (Metric for Evaluation of Translation with Explicit ORdering) implementation.
+
 Based on Banerjee & Lavie (2005) - combines precision, recall, and alignment-based
 fragmentation penalty. Uses exact, stem, and synonym matching stages.
+
+References:
+    [1] S. Banerjee and A. Lavie, "METEOR: An Automatic Metric for MT Evaluation
+        with Improved Correlation with Human Judgments," in Proc. ACL Workshop
+        on Intrinsic and Extrinsic Evaluation Measures for Machine Translation
+        and/or Summarization, Ann Arbor, MI, USA, Jun. 2005, pp. 65-72.
+
+    [2] M. Denkowski and A. Lavie, "Meteor Universal: Language Specific Translation
+        Evaluation for Any Target Language," in Proc. 9th Workshop on Statistical
+        Machine Translation, Baltimore, MD, USA, Jun. 2014, pp. 376-380.
+        doi: 10.3115/v1/W14-3348
 """
 from typing import List, Dict, Union, Tuple, Set
 from nltk.stem import PorterStemmer
@@ -17,7 +29,49 @@ except LookupError:
 
 
 class METEORMetric:
-    """METEOR metric with alignment-based matching and fragmentation penalty."""
+    """METEOR metric with alignment-based matching and fragmentation penalty.
+
+    Examples:
+        >>> from prometheus_eval.metrics.lexical.meteor import METEORMetric
+        >>>
+        >>> # Basic usage with synonym matching
+        >>> meteor = METEORMetric()
+        >>> reference = "The car is fast"
+        >>> candidate = "The automobile is quick"  # Synonyms: car=automobile, fast=quick
+        >>>
+        >>> score = meteor.compute(candidate, reference)
+        >>> print(f"METEOR Score: {score['meteor']:.4f}")
+        METEOR Score: 0.7500
+        >>> # Higher score due to synonym matching (vs. exact match only)
+
+        >>> # Comparing METEOR vs BLEU for paraphrases
+        >>> reference = "The student solved the difficult problem"
+        >>> candidate = "The pupil resolved the hard question"
+        >>>
+        >>> meteor_score = meteor.compute(candidate, reference)
+        >>> print(f"METEOR: {meteor_score['meteor']:.4f}")
+        >>> # METEOR scores higher than BLEU due to synonym matching
+
+        >>> # Multi-reference evaluation
+        >>> references = [
+        ...     "The movie was excellent",
+        ...     "The film was outstanding"
+        ... ]
+        >>> candidate = "The picture was great"  # Synonyms: movie/film/picture
+        >>> score = meteor.compute(candidate, references)
+        >>> print(f"METEOR Score: {score['meteor']:.4f}")
+
+        >>> # Prompt engineering: Evaluating creative paraphrasing
+        >>> reference = "Explain quantum entanglement"
+        >>> prompt_a = "Describe how quantum particles become entangled"
+        >>> prompt_b = "Explain the phenomenon of quantum entanglement"
+        >>>
+        >>> score_a = meteor.compute(prompt_a, reference)['meteor']
+        >>> score_b = meteor.compute(prompt_b, reference)['meteor']
+        >>> print(f"Prompt A METEOR: {score_a:.4f}")
+        >>> print(f"Prompt B METEOR: {score_b:.4f}")
+        >>> # prompt_b scores higher due to exact phrase match
+    """
 
     def __init__(self, alpha: float = 0.9, beta: float = 3.0, gamma: float = 0.5):
         """Initialize METEOR with F-measure weights and penalty parameter.

@@ -48,7 +48,7 @@ def load_config(env_file: Optional[str] = None) -> InferenceConfig:
     # Build config from environment variables
     config_data = {
         "openai_api_key": os.getenv("OPENAI_API_KEY"),
-        "openai_org_id": os.getenv("OPENAI_ORG_ID"),
+        "openai_org_id": os.getenv("OPENAI_ORG_ID") if os.getenv("OPENAI_ORG_ID") != "your_openai_org_id_here" else None,
         "anthropic_api_key": os.getenv("ANTHROPIC_API_KEY"),
         "huggingface_api_token": os.getenv("HUGGINGFACE_API_TOKEN"),
         "default_openai_model": os.getenv("DEFAULT_OPENAI_MODEL", "gpt-4-turbo-preview"),

@@ -34,7 +34,47 @@ from src.inference.base import AbstractLLMProvider
 from src.experiments.evaluator import AccuracyEvaluator
 
 
+
+# Global worker support
+_worker_provider = None
+
+def init_worker(provider_class, provider_name, api_key, default_model, temperature, max_tokens, timeout):
+    """Initialize the global provider in the worker process."""
+    global _worker_provider
+    print(f"DEBUG: init_worker called in pid {os.getpid()}")
+    try:
+        _worker_provider = provider_class(
+            api_key=api_key,
+            default_model=default_model,
+            temperature=temperature,
+            max_tokens=max_tokens,
+            timeout=timeout
+        )
+        print(f"DEBUG: _worker_provider initialized: {_worker_provider}")
+    except Exception as e:
+        print(f"Failed to initialize worker provider: {e}")
+        import traceback
+        traceback.print_exc()
+
+def run_inference_task(prompt: str) -> str:
+    """Top-level task function for worker processes."""
+    global _worker_provider
+    if _worker_provider is None:
+        return "Error: Provider not initialized"
+    
+    try:
+        response = _worker_provider.generate(
+            prompt=prompt,
+            temperature=0.7,
+            max_tokens=256
+        )
+        return response.strip()
+    except Exception as e:
+        print(f"Error processing prompt: {e}")
+        return ""
+
 class ExperimentRunner:
+
     """
     Runs comparative experiments across multiple prompt variators.
 
@@ -245,38 +285,38 @@ class ExperimentRunner:
             "predictions": predictions[:5],  # Save first 5 for inspection
         }
 
+
     def _run_parallel_inference(self, prompts: List[str]) -> List[str]:
         """
         Run LLM inference in parallel using multiprocessing.
-
-        Args:
-            prompts: List of prompts to process
-
-        Returns:
-            List of model responses
         """
-        # For small datasets, run sequentially to avoid overhead
+        # For small datasets, run sequentially (but we need to use the instance provider here)
         if len(prompts) < self.num_workers:
-            return [self._process_single_prompt(p) for p in prompts]
+             return [self._process_single_prompt_sequential(p) for p in prompts]
 
         # Use multiprocessing for larger datasets
-        with Pool(processes=self.num_workers) as pool:
-            results = pool.map(self._process_single_prompt, prompts)
+        # Extract config to pass to workers
+        provider = self.llm_provider
+        
+        with Pool(
+            processes=self.num_workers,
+            initializer=init_worker,
+            initargs=(
+                type(provider),
+                provider.provider_name,
+                provider.api_key,
+                provider.default_model,
+                provider.temperature,
+                provider.max_tokens,
+                provider.timeout
+            )
+        ) as pool:
+            results = pool.map(run_inference_task, prompts)
 
         return results
 
-    def _process_single_prompt(self, prompt: str) -> str:
-        """
-        Process a single prompt through the LLM.
-
-        Args:
-            prompt: The prompt to process
-
-        Returns:
-            Model response
-
-        Note: This method is called by worker processes
-        """
+    def _process_single_prompt_sequential(self, prompt: str) -> str:
+        """Sequential processing using the instance provider."""
         try:
             response = self.llm_provider.generate(
                 prompt=prompt,
@@ -286,7 +326,6 @@ class ExperimentRunner:
             return response.strip()
         except Exception as e:
             print(f"Error processing prompt: {e}")
-            traceback.print_exc()
             return ""
 
     def _create_comparison(self, all_results: Dict[str, Dict]) -> Dict[str, Any]:
