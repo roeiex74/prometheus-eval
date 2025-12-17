@@ -255,7 +255,9 @@ def main():
     print("Updating Dashboard...")
     generate_manifest()
     
-    print("Done. To view dashboard, run: python serve_dashboard.py")
+    print("Done. Launching dashboard...")
+    import subprocess
+    subprocess.Popen([sys.executable, "serve_dashboard.py"])
 
 if __name__ == "__main__":
     main()

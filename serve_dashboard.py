@@ -4,9 +4,36 @@ import webbrowser
 import os
 import sys
 
+import subprocess
+import time
+
 PORT = 8000
 
+def kill_existing_server():
+    """Kills any process running on PORT."""
+    try:
+        # Find PID using lsof
+        # -t: terse output (only PID)
+        # -i: Internet address
+        result = subprocess.run(
+            ["lsof", "-t", f"-i:{PORT}"], 
+            capture_output=True, 
+            text=True
+        )
+        pids = result.stdout.strip().split('\n')
+        
+        for pid in pids:
+            if pid:
+                print(f"Stopping existing server (PID: {pid})...")
+                subprocess.run(["kill", "-9", pid], check=False)
+                time.sleep(1) # Wait for port to clear
+                
+    except Exception as e:
+        print(f"Warning: Failed to cleanup port {PORT}: {e}")
+
 def serve():
+    kill_existing_server()
+
     # Ensure we are serving from the project root
     root_dir = os.path.dirname(os.path.abspath(__file__))
     os.chdir(root_dir)
@@ -20,7 +47,6 @@ def serve():
     print(f"Dashboard URL: http://localhost:{PORT}/dashboard/")
     
     # Open the browser automatically
-    # We use a timer or just call it before serve_forever (it's non-blocking usually if it just spawns a process, but safe to do before)
     webbrowser.open(f"http://localhost:{PORT}/dashboard/")
 
     try:
@@ -30,8 +56,8 @@ def serve():
             httpd.serve_forever()
     except OSError as e:
         if e.errno == 48:
-            print(f"Error: Port {PORT} is already in use.")
-            print("Try stopping the other server or wait a moment.")
+             # Should be handled by kill_existing_server, but just in case
+            print(f"Error: Port {PORT} is still in use.")
             sys.exit(1)
         else:
             raise
